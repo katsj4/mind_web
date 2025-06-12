@@ -1,0 +1,75 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#eefdf8',
+          100: '#d5f6ed',
+          200: '#aeeadb',
+          300: '#7ad7c3',
+          400: '#41baa4',
+          500: '#0D9488',
+          600: '#0c7a71',
+          700: '#0f625c',
+          800: '#104f4a',
+          900: '#11403e',
+          950: '#05262a',
+        },
+        secondary: {
+          50: '#f1f8fe',
+          100: '#e3f0fb',
+          200: '#c0e0f7',
+          300: '#88c8f0',
+          400: '#4aa9e6',
+          500: '#2288d1',
+          600: '#156cb0',
+          700: '#13578f',
+          800: '#154a76',
+          900: '#153f63',
+          950: '#0e2941',
+        },
+        accent: {
+          50: '#fff8ed',
+          100: '#ffeed3',
+          200: '#ffd6a5',
+          300: '#ffb86d',
+          400: '#ff9333',
+          500: '#fe710d',
+          600: '#ef5003',
+          700: '#c53a06',
+          800: '#9c2f0d',
+          900: '#7e290e',
+          950: '#441103',
+        },
+        dark: {
+          50: '#f7f8f9',
+          100: '#ebedf0',
+          200: '#dde0e5',
+          300: '#c6cad3',
+          400: '#a9aebb',
+          500: '#8c92a3',
+          600: '#71768a',
+          700: '#5d6177',
+          800: '#0F172A', // Main dark background
+          900: '#0c101e',
+          950: '#060814',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Manrope', 'sans-serif'],
+      },
+      boxShadow: {
+        card: '0 4px 12px rgba(0, 0, 0, 0.05)',
+        'card-dark': '0 4px 12px rgba(0, 0, 0, 0.2)',
+      },
+      animation: {
+        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+    },
+  },
+  plugins: [],
+};
