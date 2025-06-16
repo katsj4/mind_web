@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Paperclip, Smile } from 'lucide-react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import Picker from '@emoji-mart/react';
 import emojiData from '@emoji-mart/data';
 
@@ -155,7 +155,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       };
       setMessages([...newMessages, aiMsg]);
     } catch (error) {
-      const axiosError = error as AxiosError;
       const errorMsg: Message = {
         role: 'assistant',
         content: 'Something went wrong. Please try again later.',
