@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '', scroll: true },
+    { name: 'Home', href: '#home', scroll: true, },
     { name: 'Features', href: '#features', scroll: true },
     { name: 'About', href: '#about', scroll: true },
    // { name: 'Testimonials', href: '#testimonials', scroll: true },

@@ -6,6 +6,7 @@ import { CTASection } from '../components/sections/CTASection';
 import { AboutUsSection } from '../components/sections/AboutUsSection';
 import FAQ from '../components/sections/FAQSection';
 
+
 export const HomePage: React.FC = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ export const HomePage: React.FC = () => {
       <FeaturesSection />
       <StatsSection />
       <AboutUsSection />
+      
       <FAQ />
       {/* Uncomment when TestimonialsSection is ready */}
       {/* <TestimonialsSection /> */}
