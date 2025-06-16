@@ -145,7 +145,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
 
       if (!contextSent) setContextSent(true);
 
-      const res = await axios.post('http://localhost:3001/chat', {
+      const res = await axios.post('https://mind-web-git-main-kato-francis-projects.vercel.app/api/chat', {
         messages: messagesToSend,
       });
 
