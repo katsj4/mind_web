@@ -1,4 +1,3 @@
-// api/chat.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
@@ -13,10 +12,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { messages } = req.body;
 
-  console.log('Received messages:', messages);
-
   const chatHistory = messages.map((msg: any) => ({
-    role: msg.role, // 'user' or 'assistant'
+    role: msg.role,
     parts: [{ text: msg.content }],
   }));
 
@@ -28,14 +25,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     );
 
-    console.log('Gemini API response:', response.data);
-
     const reply =
       response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       'Sorry, I could not generate a response.';
 
     res.status(200).json({ reply });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Gemini API error:', error.response?.data || error.message);
     res.status(500).json({ reply: 'Something went wrong.' });
   }
