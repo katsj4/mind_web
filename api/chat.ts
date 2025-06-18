@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
 const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+  'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
