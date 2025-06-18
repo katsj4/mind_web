@@ -1,9 +1,10 @@
+// api/chat.ts
+
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
-const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -11,7 +12,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ reply: 'Missing Gemini API key.' });
+    return res.status(500).json({ reply: 'Missing Gemini API key' });
   }
 
   const { messages } = req.body;
@@ -29,11 +30,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const reply =
       response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      'Gemini did not return a valid response.';
+      'No response from Gemini.';
 
     res.status(200).json({ reply });
-  } catch (err: any) {
-    console.error('Gemini API error:', err.response?.data || err.message);
-    res.status(500).json({ reply: 'Error contacting Gemini API.' });
+  } catch (error: any) {
+    console.error('Gemini API Error:', error.response?.data || error.message);
+    res.status(500).json({ reply: 'Gemini API Error.' });
   }
 }
