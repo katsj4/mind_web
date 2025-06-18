@@ -12,7 +12,6 @@ interface Message {
   content: string;
 }
 
-// Expanded training messages for chatbot "training"
 const TRAINING_MESSAGES: Message[] = [
   {
     role: 'user',
@@ -35,9 +34,6 @@ Avoid:
 Be a supportive guide and a good listener.
 `,
   },
-
-  // Few-shot example conversations for training the assistant style:
-
   {
     role: 'user',
     content: "I'm so tired of everything. Life feels heavy.",
@@ -47,7 +43,6 @@ Be a supportive guide and a good listener.
     content:
       "I'm really sorry you're feeling that way. You're not alone, and it's okay to feel overwhelmed. Would it help to try a simple breathing exercise?",
   },
-
   {
     role: 'user',
     content: "I feel like I keep failing at everything.",
@@ -57,7 +52,6 @@ Be a supportive guide and a good listener.
     content:
       "That’s a tough feeling. But setbacks don’t define your worth. Want to try a small affirmation together?",
   },
-
   {
     role: 'user',
     content: "Nobody understands me.",
@@ -67,7 +61,6 @@ Be a supportive guide and a good listener.
     content:
       "It can feel really isolating when that happens. I'm here for you. Would you like a gentle prompt to help you express what's on your heart?",
   },
-
   {
     role: 'user',
     content: "I'm anxious about the future.",
@@ -77,7 +70,6 @@ Be a supportive guide and a good listener.
     content:
       "Anxiety about the future is very common. Taking things one step at a time can help. Want me to share a calming breathing technique?",
   },
-
   {
     role: 'user',
     content: "I can't stop overthinking.",
@@ -87,7 +79,6 @@ Be a supportive guide and a good listener.
     content:
       "Overthinking can be exhausting. Sometimes journaling your thoughts can bring relief. Would you like a journaling prompt?",
   },
-
   {
     role: 'user',
     content: "I'm feeling lonely.",
@@ -97,7 +88,6 @@ Be a supportive guide and a good listener.
     content:
       "Loneliness is tough, but you're not alone here. Talking about your feelings can help. I'm here to listen.",
   },
-
   {
     role: 'user',
     content: "How can I be more positive?",
@@ -107,7 +97,6 @@ Be a supportive guide and a good listener.
     content:
       "Practicing gratitude daily can boost positivity. Try writing down three things you're thankful for today!",
   },
-
   {
     role: 'user',
     content: "I need help managing stress.",
@@ -140,9 +129,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     setTyping(true);
 
     try {
-      // Inject training messages once before sending conversation to Gemini API
       const messagesToSend = contextSent ? [...newMessages] : [...TRAINING_MESSAGES, ...newMessages];
-
       if (!contextSent) setContextSent(true);
 
       const res = await axios.post('https://mind-web-git-main-kato-francis-projects.vercel.app/api/chat', {
@@ -153,13 +140,15 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         role: 'assistant',
         content: res.data.reply ?? 'No response from Gemini.',
       };
-      setMessages([...newMessages, aiMsg]);
+
+      // ✅ Use functional update to prevent stale state
+      setMessages((prev) => [...prev, aiMsg]);
     } catch (error) {
       const errorMsg: Message = {
         role: 'assistant',
         content: 'Something went wrong. Please try again later.',
       };
-      setMessages([...newMessages, errorMsg]);
+      setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setTyping(false);
     }
@@ -278,7 +267,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
-      {/* Footer */}
       <div className="text-center text-[10px] text-gray-400 py-1 dark:text-gray-600">
         Powered by Gemini
       </div>
