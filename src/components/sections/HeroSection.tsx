@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 
 export const HeroSection: React.FC = () => {
@@ -62,15 +63,15 @@ export const HeroSection: React.FC = () => {
               >
                 Download App Now
               </Button>
-              <Button
+              <Link to="/how-it-works">
+               <Button
                 variant="outline"
                 size="lg"
                 className="block py-2 px-4 text-gray-700 dark:text-gray-200 hover:text-[#008080] transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-4 after:w-0 after:h-[2px] after:bg-[#008080] hover:after:w-[calc(100%-32px)] after:transition-all after:duration-300"
-                onClick={() => window.location.href = "/how-it-works"}
-
-              >
+                >
                 Learn more
-              </Button>
+                </Button>
+                </Link>
             </div>
           </motion.div>
           

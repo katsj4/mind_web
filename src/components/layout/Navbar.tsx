@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Menu, X, Download } from 'lucide-react';
-
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { Button } from '../ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -23,20 +23,30 @@ export const Navbar: React.FC = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-    } else if (sectionId === '') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (sectionId?: string) => {
+    if (location.pathname === '/') {
+      if (sectionId) scrollToSection(sectionId);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      // Scroll after short delay (to ensure DOM is ready)
+      if (sectionId) {
+        setTimeout(() => scrollToSection(sectionId), 300);
+      }
     }
   };
 
   const navLinks = [
-    { name: 'Home', href: '#home', scroll: true, },
-    { name: 'Features', href: '#features', scroll: true },
-    { name: 'About', href: '#about', scroll: true },
-   // { name: 'Testimonials', href: '#testimonials', scroll: true },
-    { name: 'Mindset AI', href: '#ai', scroll: true },
-    { name: 'Download', href: '#download', scroll: true }
+    { name: 'Home', isHomeSection: true },
+    { name: 'Features', sectionId: 'features', isHomeSection: true },
+    { name: 'About', sectionId: 'about', isHomeSection: true },
+    { name: 'Mindset AI', sectionId: 'ai' },
+    { name: 'Download', sectionId: 'download' },
   ];
-  
+
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
@@ -54,31 +64,24 @@ export const Navbar: React.FC = () => {
             </div>
             <span className="text-xl font-semibold text-primary-500">Mindset</span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <div key={link.name} className="relative group">
-                {link.scroll ? (
-                  <button
-                    onClick={() => scrollToSection(link.href.substring(1))}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 transition-colors py-2"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
-                  <Link
-                    to={link.href}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 transition-colors py-2"
-                  >
-                    {link.name}
-                  </Link>
-                )}
+                <button
+                  onClick={() =>
+                    handleNavClick(link.sectionId)
+                  }
+                  className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 transition-colors py-2"
+                >
+                  {link.name}
+                </button>
                 <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </div>
             ))}
           </nav>
-          
+
           {/* Right Side Items */}
           <div className="flex items-center space-x-4">
             <ThemeToggle />
@@ -89,7 +92,7 @@ export const Navbar: React.FC = () => {
             >
               Get App
             </Button>
-            
+
             {/* Mobile Menu Button */}
             <button 
               className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700"
@@ -104,7 +107,7 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -117,25 +120,15 @@ export const Navbar: React.FC = () => {
             <div className="container mx-auto px-4 py-3 space-y-1">
               {navLinks.map((link) => (
                 <div key={link.name}>
-                  {link.scroll ? (
-                    <button
-                      onClick={() => {
-                        scrollToSection(link.href.substring(1));
-                        setMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left py-2 px-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700 rounded-md"
-                    >
-                      {link.name}
-                    </button>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="block py-2 px-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700 rounded-md"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+                  <button
+                    onClick={() => {
+                      handleNavClick(link.sectionId);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left py-2 px-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700 rounded-md"
+                  >
+                    {link.name}
+                  </button>
                 </div>
               ))}
               <div className="pt-4 pb-3">

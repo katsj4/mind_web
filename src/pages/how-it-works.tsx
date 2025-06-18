@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
 import { ChevronDown, ChevronUp } from 'lucide-react';
-
 
 export default function HowItWorks() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
@@ -15,7 +13,6 @@ export default function HowItWorks() {
     {
       step: 1,
       title: 'Download the App',
-      
       description:
         'Get Mindset from the Google Play Store. It’s free, secure, and quick to install on any Android device.',
       details:
@@ -71,14 +68,13 @@ export default function HowItWorks() {
 
   return (
     <>
-  
-      <section className="pt-32 pb-20 bg-[#ECF3F3E7] bg-opacity-90 backdrop-blur-sm">
+      <section className="pt-32 pb-20 bg-[#ECF3F3E7] dark:bg-[#033838FF] bg-opacity-90 backdrop-blur-sm">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 bg-[#ACE7E7E7] p-8 shadow-lg rounded-xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16 bg-[#ACE7E7E7] dark:bg-dark-800 p-8 shadow-lg rounded-xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               How It Works
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Discover how Mindset helps you take control of your mental wellness journey through simple and effective steps.
             </p>
           </div>
@@ -91,15 +87,17 @@ export default function HowItWorks() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="relative bg-white p-6 rounded-xl shadow-lg"
+                className="relative bg-white dark:bg-dark-700 p-6 rounded-xl shadow-lg"
               >
                 <div className="flex items-start space-x-4">
                   <img src={step.image} alt={step.title} className="w-14 h-14" />
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
                       Step {step.step}: {step.title}
                     </h3>
-                    <p className="text-gray-600 mb-2">{step.description}</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-2">
+                      {step.description}
+                    </p>
                     <button
                       onClick={() => toggleStep(index)}
                       className="flex items-center text-[#008080] font-medium hover:underline focus:outline-none"
@@ -121,7 +119,7 @@ export default function HowItWorks() {
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden mt-4 text-gray-700"
+                          className="overflow-hidden mt-4 text-gray-700 dark:text-gray-200"
                         >
                           <p>{step.details}</p>
                         </motion.div>
@@ -134,8 +132,10 @@ export default function HowItWorks() {
           </div>
 
           <div className="mt-20 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Watch How It Works</h2>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              Watch How It Works
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Here’s a quick video overview of what to expect when you start using Mindset.
             </p>
             <div className="aspect-w-16 aspect-h-9">
@@ -150,7 +150,6 @@ export default function HowItWorks() {
           </div>
         </div>
       </section>
-      
     </>
   );
 }
