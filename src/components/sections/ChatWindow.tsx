@@ -143,7 +143,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         content: res.data.reply ?? 'No response from Gemini.',
       };
 
-      // ✅ Use functional update to prevent stale state
       setMessages((prev) => [...prev, aiMsg]);
     } catch (error) {
       const errorMsg: Message = {
@@ -187,7 +186,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
-     className="fixed bottom-4 right-4 w-[90vw] max-w-sm h-[85vh] sm:h-[500px] rounded-xl shadow-2xl z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800"
+      className="fixed bottom-0 right-0 w-full h-full sm:bottom-6 sm:right-6 sm:w-[350px] sm:h-[500px] z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800 rounded-none sm:rounded-xl shadow-2xl"
     >
       {/* Header */}
       <div className="bg-[#061738] text-white px-4 py-3 flex justify-between items-center">
@@ -211,7 +210,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
             className={`mb-2 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}
           >
             <span
-              className={`inline-block px-3 py-2 rounded-lg max-w-[80%] ${
+              className={`inline-block px-3 py-2 rounded-lg max-w-[80%] break-words ${
                 msg.role === 'user'
                   ? 'bg-[#008080] text-white'
                   : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white'
@@ -226,7 +225,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
 
       {/* Emoji Picker */}
       {showEmoji && (
-        <div className="absolute bottom-[80px] right-6 z-50">
+        <div className="absolute bottom-[90px] right-4 z-50">
           <Picker
             data={emojiData}
             onEmojiSelect={(emoji: any) => setInput((prev) => prev + emoji.native)}
@@ -236,7 +235,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       )}
 
       {/* Input */}
-      <div className="border-t p-3 flex items-center gap-2 relative bg-white dark:bg-gray-900 dark:border-t-gray-800">
+      <div className="border-t p-3 flex items-center gap-2 bg-white dark:bg-gray-900 dark:border-t-gray-800">
         <label htmlFor="chat-file" className="cursor-pointer" onClick={handleFileClick}>
           <Paperclip className="text-gray-500 hover:text-[#008080]" />
         </label>
@@ -275,3 +274,4 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     </motion.div>
   );
 }
+// This component provides a chat interface for users to interact with the Mindset AI assistant.
