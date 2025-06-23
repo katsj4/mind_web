@@ -22,19 +22,20 @@ export const Footer: React.FC = () => {
             {/* Newsletter Signup */}
             <div className="mt-8">
               <h3 className="font-medium text-gray-300 mb-3">Get wellness tips in your inbox</h3>
-              <form className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
-                <button 
-                  type="submit"
-                  className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors"
-                >
-                  Subscribe
-                </button>
-              </form>
+              <form className="flex flex-col sm:flex-row gap-3 w-full">
+  <input
+    type="email"
+    placeholder="Your email address"
+    className="w-full sm:flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+  />
+  <button 
+    type="submit"
+    className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors"
+  >
+    Subscribe
+  </button>
+</form>
+
             </div>
           </div>
           
