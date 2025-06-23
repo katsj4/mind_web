@@ -187,16 +187,16 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
   initial={{ opacity: 0, y: 100 }}
   animate={{ opacity: 1, y: 0 }}
   className="
-    fixed bottom-4 right-4 
-    w-full max-w-sm h-[90vh] 
-    rounded-xl shadow-2xl z-50 
-    flex flex-col border 
+    fixed bottom-4 right-4 z-50
+    w-[95%] max-w-sm h-[90vh]
+    rounded-xl shadow-2xl flex flex-col border
     bg-white dark:bg-gray-900 dark:border-gray-800
-    sm:right-4 sm:translate-x-0 
-    left-1/2 -translate-x-1/2 sm:left-auto
-    px-4
+
+    sm:right-4 sm:left-auto sm:translate-x-0
+    left-1/2 -translate-x-1/2
   "
 >
+
 
       {/* Header */}
       <div className="bg-[#061738] text-white px-4 py-3 flex justify-between items-center">
