@@ -191,13 +191,15 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     w-[95vw] max-w-[400px] h-[90vh]
     flex flex-col rounded-xl shadow-2xl border
     bg-white dark:bg-gray-900 dark:border-gray-800
-
-    right-1/2 translate-x-1/2
+     left-0  translate-x-[-50%]
+    sm:w-[400px] sm:h-[500px] sm:rounded-lg
+    right-0 sm:left-auto
+    sm:translate-x-0 sm:bottom-6
     sm:right-6 sm:translate-x-0
   `}
 >
       {/* Header */}
-      <div className="bg-[#061738] text-white px-4 py-3 flex justify-between items-center">
+      <div className="bg-[#090B0DFF] text-white px-4 py-3 flex justify-between items-center">
         <h3 className="font-semibold">Mindset Assistant</h3>
         <button onClick={onClose}>
           <X className="text-white hover:text-gray-300" />
