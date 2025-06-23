@@ -235,33 +235,34 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       )}
 
       {/* Input Section - FIXED */}
-      <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 space-x-2">
-        <button onClick={handleFileClick} className="shrink-0">
-          <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
-        </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          className="hidden"
-          onChange={(e) => handleFileSend(e.target.files?.[0])}
-        />
-        <button onClick={() => setShowEmoji((prev) => !prev)} className="shrink-0">
-          <Smile className="text-gray-500 hover:text-[#008080] w-5 h-5" />
-        </button>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Type your message..."
-          className="flex-1 border px-4 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-white outline-none"
-        />
-        <button
-          onClick={handleSend}
-          className="shrink-0 bg-[#008080] text-white px-4 py-2 rounded-full text-sm hover:bg-[#0d8c6d]"
-        >
-          Send
-        </button>
-      </div>
+      <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 gap-2 w-full max-w-full overflow-hidden">
+  <button onClick={handleFileClick} className="shrink-0">
+    <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
+  </button>
+  <input
+    ref={fileInputRef}
+    type="file"
+    className="hidden"
+    onChange={(e) => handleFileSend(e.target.files?.[0])}
+  />
+  <button onClick={() => setShowEmoji((prev) => !prev)} className="shrink-0">
+    <Smile className="text-gray-500 hover:text-[#008080] w-5 h-5" />
+  </button>
+  <input
+    value={input}
+    onChange={(e) => setInput(e.target.value)}
+    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+    placeholder="Type your message..."
+    className="flex-1 min-w-0 border px-3 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-white outline-none"
+  />
+  <button
+    onClick={handleSend}
+    className="shrink-0 bg-[#008080] text-white px-4 py-2 rounded-full text-sm hover:bg-[#0d8c6d]"
+  >
+    Send
+  </button>
+</div>
+
 
       <div className="text-center text-[10px] text-gray-400 py-1 dark:text-gray-600">
         Powered by Gemini
