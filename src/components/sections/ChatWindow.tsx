@@ -186,16 +186,18 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
 <motion.div
   initial={{ opacity: 0, y: 100 }}
   animate={{ opacity: 1, y: 0 }}
-  className="
-    fixed bottom-4 z-50 flex flex-col rounded-xl shadow-2xl border
+  className={`
+    fixed z-50 bottom-4
+    flex flex-col rounded-xl shadow-2xl border
     bg-white dark:bg-gray-900 dark:border-gray-800
 
-    w-[95%] max-w-sm h-[90vh]
-
-    left-1/2 -translate-x-1/2
+    w-[95%] max-w-[400px] h-[90vh]
+    
+    left-1/2 translate-x-[-50%] 
     sm:left-auto sm:right-6 sm:translate-x-0
-  "
+  `}
 >
+
 
 
 
