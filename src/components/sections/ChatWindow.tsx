@@ -186,7 +186,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-0 right-0 w-full h-full sm:bottom-6 sm:right-6 sm:w-[350px] sm:h-[500px] z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800 rounded-none sm:rounded-xl shadow-2xl"
+      className="fixed bottom-6 right-6 w-[350px] md:w-[400px] h-[500px] rounded-xl shadow-2xl z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800"
     >
       {/* Header */}
       <div className="bg-[#061738] text-white px-4 py-3 flex justify-between items-center">
@@ -210,7 +210,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
             className={`mb-2 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}
           >
             <span
-              className={`inline-block px-3 py-2 rounded-lg max-w-[80%] break-words ${
+              className={`inline-block px-3 py-2 rounded-lg max-w-[80%] ${
                 msg.role === 'user'
                   ? 'bg-[#008080] text-white'
                   : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white'
@@ -225,7 +225,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
 
       {/* Emoji Picker */}
       {showEmoji && (
-        <div className="absolute bottom-[90px] right-4 z-50">
+        <div className="absolute bottom-[80px] right-6 z-50">
           <Picker
             data={emojiData}
             onEmojiSelect={(emoji: any) => setInput((prev) => prev + emoji.native)}
@@ -234,35 +234,30 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {/* Input */}
-      <div className="border-t p-3 flex items-center gap-2 bg-white dark:bg-gray-900 dark:border-t-gray-800">
-        <label htmlFor="chat-file" className="cursor-pointer" onClick={handleFileClick}>
-          <Paperclip className="text-gray-500 hover:text-[#008080]" />
-        </label>
+      {/* Input Section - FIXED */}
+      <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 space-x-2">
+        <button onClick={handleFileClick} className="shrink-0">
+          <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
+        </button>
         <input
           ref={fileInputRef}
           type="file"
-          id="chat-file"
           className="hidden"
           onChange={(e) => handleFileSend(e.target.files?.[0])}
         />
-
-        <button onClick={() => setShowEmoji((prev) => !prev)}>
-          <Smile className="text-gray-500 hover:text-[#008080]" />
+        <button onClick={() => setShowEmoji((prev) => !prev)} className="shrink-0">
+          <Smile className="text-gray-500 hover:text-[#008080] w-5 h-5" />
         </button>
-
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          type="text"
           placeholder="Type your message..."
-          className="flex-1 border px-4 py-2 rounded-full text-sm outline-none bg-gray-100 dark:bg-gray-800 text-black dark:text-white placeholder:text-gray-400"
+          className="flex-1 border px-4 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-white outline-none"
         />
-
         <button
           onClick={handleSend}
-          className="bg-[#008080] text-white px-4 py-2 rounded-full hover:bg-[#0d8c6d] text-sm"
+          className="shrink-0 bg-[#008080] text-white px-4 py-2 rounded-full text-sm hover:bg-[#0d8c6d]"
         >
           Send
         </button>
@@ -274,4 +269,3 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     </motion.div>
   );
 }
-// This component provides a chat interface for users to interact with the Mindset AI assistant.
