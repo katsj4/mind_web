@@ -10,12 +10,14 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col bg-white dark:bg-dark-800 text-gray-800 dark:text-gray-100 transition-colors duration-300">
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+      <div className="w-full max-w-screen overflow-x-hidden">
+        <div className="min-h-screen flex flex-col bg-white dark:bg-dark-800 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </div>
     </ThemeProvider>
   );
