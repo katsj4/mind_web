@@ -184,10 +184,10 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-  initial={{ opacity: 0, y: 100 }}
-  animate={{ opacity: 1, y: 0 }}
-  className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[95vw] max-w-[400px] h-[90vh] md:h-[500px] rounded-xl shadow-2xl z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800"
->
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="fixed bottom-6 right-6 w-[350px] md:w-[400px] h-[500px] rounded-xl shadow-2xl z-50 flex flex-col border bg-white dark:bg-gray-900 dark:border-gray-800"
+    >
       {/* Header */}
       <div className="bg-[#061738] text-white px-4 py-3 flex justify-between items-center">
         <h3 className="font-semibold">Mindset Assistant</h3>
