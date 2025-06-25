@@ -5,7 +5,7 @@ import axios from 'axios';
 import Picker from '@emoji-mart/react';
 import emojiData from '@emoji-mart/data';
 
-type Role = 'user' | 'assistant';
+type Role = 'user' | 'assistant' | 'system';
 
 interface Message {
   role: Role;
@@ -14,7 +14,7 @@ interface Message {
 
 const TRAINING_MESSAGES: Message[] = [
   {
-  role: 'user',
+  role: 'system',
   content: `
 You are Mindset AI, a warm and caring assistant in a mental health and mindset app. Your role is to help users feel emotionally supported.
 Mindset is a mobile and web-based platform designed to support mental health, emotional well-being, and daily productivity. It offers tools like guided meditation, journaling, mood tracking, focus timers, and personalized wellness plans.
