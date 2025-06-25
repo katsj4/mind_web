@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FAQItem {
   question: string;
@@ -474,14 +474,29 @@ export default function FAQ() {
         )}
 
         {/* Toggle button */}
-        <div className="text-center mt-12">
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="inline-block border border-teal-600 text-teal-600 px-10 py-3 rounded-full font-semibold hover:bg-teal-600 hover:text-white transition"
-          >
-            {showAll ? "Show Less Questions" : "View More Questions"}
-          </button>
-        </div>
+       {/* Divider with centered toggle button */}
+<div className="relative flex items-center justify-center my-12">
+  {/* Horizontal Line */}
+  <div className="w-full h-px bg-[#008080] absolute top-1/2 transform -translate-y-1/2" />
+
+  {/* Toggle Button with Chevron Icon */}
+  <button
+    onClick={() => setShowAll(!showAll)}
+    className="relative z-10 bg-white dark:bg-gray-900 px-6 py-2 border border-[#008080] text-[#008080] font-semibold rounded-full shadow-md flex items-center gap-2 hover:bg-[#008080] hover:text-white transition"
+  >
+    {showAll ? (
+      <>
+        Show Less <ChevronUp className="w-5 h-5" />
+      </>
+    ) : (
+      <>
+        View More Questions <ChevronDown className="w-5 h-5" />
+      </>
+    )}
+  </button>
+</div>
+
+
       </div>
     </section>
   );
