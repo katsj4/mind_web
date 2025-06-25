@@ -7,6 +7,7 @@ interface FAQItem {
 }
 
 const initialFaqs: FAQItem[] = [
+  
   {
     question: "How does Mindset improve my daily mental wellness?",
     answer:
@@ -394,6 +395,9 @@ export default function FAQ() {
 
         {/* Initial FAQs */}
         <div>
+          <h3 className="text-2xl font-bold mb-6" style={{ color: "#008080" }}>
+      GENERAL
+        </h3>
           {initialFaqs.map((faq, idx) => (
             <div
               key={idx}
