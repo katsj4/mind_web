@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+// ChatWindow.tsx
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Paperclip, Smile } from 'lucide-react';
 import axios from 'axios';
@@ -6,77 +7,58 @@ import Picker from '@emoji-mart/react';
 import emojiData from '@emoji-mart/data';
 import ReactMarkdown from 'react-markdown';
 
-type Role = 'user' | 'assistant' | 'system';
+// Message types
+
+type Role = 'user' | 'assistant';
 
 interface Message {
   role: Role;
   content: string;
 }
 
-const TRAINING_MESSAGES: Message[] = [
-  {
-    role: 'system',
-    content: `
-You are Mindset AI, a warm and caring assistant in a mental health and mindset app. Your role is to help users feel emotionally supported.
-... (keep your detailed system prompt here) ...
-`,
-  },
-];
-
 const suggestions = [
   'Try a breathing exercise 🌬️',
   'Write a short journal entry 📓',
   'Share how your day is going ☀️',
-  'Would you like a gentle affirmation? 💖',
+  'Would you like a gentle affirmation? 💖'
 ];
 
 export default function ChatWindow({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: '👋 Hi! Welcome to Mindset Support. How can I help you today?',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([{
+    role: 'assistant',
+    content: '👋 Hi! Welcome to Mindset Support. How can I help you today?',
+  }]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll to bottom on new messages
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [messages, typing]);
-
   const handleSend = async (customInput?: string) => {
     const textToSend = customInput || input;
     if (!textToSend.trim()) return;
-
     const userMsg: Message = { role: 'user', content: textToSend };
     const updatedMessages = [...messages, userMsg];
     setMessages(updatedMessages);
-
     if (!customInput) setInput('');
     setShowEmoji(false);
     setTyping(true);
 
     try {
       const response = await axios.post('/api/chat', {
-        messages: [...TRAINING_MESSAGES, ...updatedMessages],
+        messages: updatedMessages
       });
 
       const aiMsg: Message = {
         role: 'assistant',
-        content: response.data.reply || 'No response from Gemini.',
+        content: response.data.reply || 'No response from Gemini.'
       };
 
       setMessages((prev) => [...prev, aiMsg]);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Something went wrong. Please try again later.' },
+        { role: 'assistant', content: 'Something went wrong. Please try again later.' }
       ]);
     } finally {
       setTyping(false);
@@ -84,14 +66,31 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
   };
 
   const handleFileSend = async (file?: File) => {
-    // You can implement your file upload here or connect to your existing backend
     if (!file) return;
-    alert('File upload not yet implemented.');
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await axios.post('/api/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const fileUrl = res.data.fileUrl;
+      const fileMsg: Message = { role: 'user', content: `📎 [File](${fileUrl})` };
+      setMessages((prev) => [...prev, fileMsg]);
+    } catch {
+      alert('Upload failed. Try again.');
+    }
   };
 
   const handleFileClick = () => {
     fileInputRef.current?.click();
   };
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages, typing]);
 
   return (
     <motion.div
@@ -99,15 +98,13 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1, y: 0 }}
       className="fixed bottom-4 z-50 w-[95vw] max-w-[400px] h-[90vh] flex flex-col rounded-xl shadow-2xl border bg-white dark:bg-gray-900 dark:border-gray-800 left-0 translate-x-[-50%] sm:w-[400px] sm:h-[500px] sm:rounded-lg right-0 sm:left-auto sm:translate-x-0 sm:bottom-6 sm:right-6"
     >
-      {/* Header */}
       <div className="bg-[#090B0DFF] text-white px-4 py-3 flex justify-between items-center">
         <h3 className="font-semibold">Mindset Assistant</h3>
-        <button onClick={onClose} aria-label="Close chat window">
+        <button onClick={onClose}>
           <X className="text-white hover:text-gray-300" />
         </button>
       </div>
 
-      {/* Messages */}
       <div
         ref={containerRef}
         className="flex-1 p-4 overflow-y-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
@@ -134,7 +131,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         {typing && <div className="text-sm text-gray-500 italic">Assistant is typing...</div>}
       </div>
 
-      {/* Emoji Picker */}
       {showEmoji && (
         <div className="absolute bottom-[80px] right-6 z-50">
           <Picker
@@ -145,7 +141,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {/* Suggestions */}
       <div className="px-3 py-2 flex flex-wrap gap-2 justify-start">
         {suggestions.map((text, i) => (
           <button
@@ -158,9 +153,8 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         ))}
       </div>
 
-      {/* Input Area */}
       <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 gap-2 w-full max-w-full overflow-hidden">
-        <button onClick={handleFileClick} className="shrink-0" aria-label="Upload file">
+        <button onClick={handleFileClick} className="shrink-0">
           <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
         </button>
         <input
@@ -169,11 +163,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
           className="hidden"
           onChange={(e) => handleFileSend(e.target.files?.[0])}
         />
-        <button
-          onClick={() => setShowEmoji((prev) => !prev)}
-          className="shrink-0"
-          aria-label="Toggle emoji picker"
-        >
+        <button onClick={() => setShowEmoji((prev) => !prev)} className="shrink-0">
           <Smile className="text-gray-500 hover:text-[#008080] w-5 h-5" />
         </button>
         <input
@@ -182,12 +172,10 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="Type your message..."
           className="flex-1 min-w-0 border px-3 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-white outline-none"
-          aria-label="Chat message input"
         />
         <button
           onClick={() => handleSend()}
           className="shrink-0 bg-[#008080] text-white px-4 py-2 rounded-full text-sm hover:bg-[#0d8c6d]"
-          aria-label="Send message"
         >
           Send
         </button>
