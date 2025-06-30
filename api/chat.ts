@@ -1,11 +1,13 @@
+// api/chat.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL =
+  'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS headers
+  // ✅ CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -15,42 +17,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: `Method ${req.method} not allowed` });
+    return res
+      .status(405)
+      .json({ error: `Method ${req.method} not allowed` });
   }
 
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
+    return res
+      .status(500)
+      .json({ error: 'GEMINI_API_KEY is not set in environment variables' });
   }
 
   try {
     const { messages } = req.body;
 
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Invalid request: messages array required' });
+    if (!Array.isArray(messages)) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid request: messages must be an array' });
     }
+
+    const formattedMessages = messages.map((msg: any) => ({
+      role: msg.role || 'user',
+      parts: [{ text: msg.content || '' }],
+    }));
 
     const response = await axios.post(
       `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
-      {
-        contents: messages.map((msg: any) => ({
-          role: msg.role || 'user',
-          parts: [{ text: msg.content || '' }],
-        })),
-      },
+      { contents: formattedMessages },
       {
         headers: { 'Content-Type': 'application/json' },
       }
     );
 
-    const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const reply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!reply) {
-      return res.status(500).json({ error: 'No valid response from Gemini API' });
+      return res.status(500).json({ error: 'No valid response from Gemini' });
     }
 
-    res.status(200).json({ reply });
+    return res.status(200).json({ reply });
   } catch (error: any) {
-    console.error('Gemini API error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to get response from Gemini API' });
+    console.error('Gemini API Error:', error?.response?.data || error.message);
+    return res.status(500).json({ error: 'Failed to get response from Gemini API' });
   }
 }
