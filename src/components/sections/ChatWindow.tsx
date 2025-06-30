@@ -43,16 +43,13 @@ Avoid:
 - Complex, long-winded replies.
 - Any kind of medical advice or judgment.
 
-Be a supportive guide and a good listener.`
-  }
+Be a supportive guide and a good listener.`,
+  },
 ];
 
 export default function ChatWindow({ onClose }: { onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: '👋 Hi! Welcome to Mindset Support. How can I help you today?',
-    },
+    { role: 'assistant', content: '👋 Hi! Welcome to Mindset Support. How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
@@ -71,7 +68,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     setTyping(true);
 
     try {
-      // Send training messages only once at first call
       const messagesToSend = contextSent ? [...newMessages] : [...TRAINING_MESSAGES, ...newMessages];
       if (!contextSent) setContextSent(true);
 
@@ -85,7 +81,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       };
 
       setMessages((prev) => [...prev, aiMsg]);
-    } catch {
+    } catch (error) {
       const errorMsg: Message = {
         role: 'assistant',
         content: 'Something went wrong. Please try again later.',
@@ -129,7 +125,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1, y: 0 }}
       className="fixed bottom-4 z-50 w-[95vw] max-w-[400px] h-[90vh] flex flex-col rounded-xl shadow-2xl border bg-white dark:bg-gray-900 dark:border-gray-800 left-0 translate-x-[-50%] sm:w-[400px] sm:h-[500px] sm:rounded-lg right-0 sm:left-auto sm:translate-x-0 sm:bottom-6 sm:right-6"
     >
-      {/* Header */}
       <div className="bg-[#090B0DFF] text-white px-4 py-3 flex justify-between items-center">
         <h3 className="font-semibold">Mindset Assistant</h3>
         <button onClick={onClose}>
@@ -137,7 +132,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
-      {/* Messages */}
       <div
         ref={containerRef}
         className="flex-1 p-4 overflow-y-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
@@ -164,7 +158,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         {typing && <div className="text-sm text-gray-500 italic">Assistant is typing...</div>}
       </div>
 
-      {/* Emoji Picker */}
       {showEmoji && (
         <div className="absolute bottom-[80px] right-6 z-50">
           <Picker
@@ -175,7 +168,6 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {/* Input Section */}
       <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 gap-2 w-full max-w-full overflow-hidden">
         <button onClick={handleFileClick} className="shrink-0">
           <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
@@ -197,7 +189,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
           className="flex-1 min-w-0 border px-3 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-white outline-none"
         />
         <button
-          onClick={() => handleSend()}
+          onClick={handleSend}
           className="shrink-0 bg-[#008080] text-white px-4 py-2 rounded-full text-sm hover:bg-[#0d8c6d]"
         >
           Send

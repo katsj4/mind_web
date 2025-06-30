@@ -2,55 +2,67 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Handle CORS preflight requests
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: `Method ${req.method} not allowed` });
+    res.setHeader('Allow', ['POST', 'OPTIONS']);
+    res.status(405).json({ error: `Method ${req.method} not allowed` });
+    return;
   }
 
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'GEMINI_API_KEY is not configured' });
+    res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
+    return;
   }
 
   try {
     const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Invalid request: messages array required' });
+      res.status(400).json({ error: 'Invalid request: messages array required' });
+      return;
     }
 
+    // Prepare messages for Gemini API
+    const contents = messages.map((msg: any) => ({
+      role: msg.role || 'user',
+      parts: [{ text: msg.content || '' }],
+    }));
+
+    // Call Gemini API
     const response = await axios.post(
       `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
       {
-        contents: messages.map((msg: any) => ({
-          role: msg.role || 'user',
-          parts: [{ text: msg.content || '' }],
-        })),
+        contents,
       },
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
     );
 
-    const reply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!reply) {
-      return res.status(500).json({ error: 'No valid response from Gemini API' });
+      res.status(500).json({ error: 'No valid response from Gemini API' });
+      return;
     }
 
-    return res.status(200).json({ reply });
+    res.status(200).json({ reply });
   } catch (error: any) {
-    console.error('Gemini API Error:', error.response?.data || error.message);
-    return res.status(500).json({ error: 'Failed to get response from Gemini API' });
+    console.error('Error from Gemini API:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Failed to get response from Gemini API' });
   }
 }
