@@ -5,7 +5,6 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Handle CORS preflight requests
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -17,47 +16,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST', 'OPTIONS']);
-    res.status(405).json({ error: `Method ${req.method} not allowed` });
-    return;
+    return res.status(405).json({ error: `Method ${req.method} not allowed` });
   }
 
   if (!GEMINI_API_KEY) {
-    res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
-    return;
+    return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
   }
 
   try {
     const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      res.status(400).json({ error: 'Invalid request: messages array required' });
-      return;
+      return res.status(400).json({ error: 'Invalid request: messages array required' });
     }
 
-    // Prepare messages for Gemini API
-    const contents = messages.map((msg: any) => ({
-      role: msg.role || 'user',
-      parts: [{ text: msg.content || '' }],
-    }));
-
-    // Call Gemini API
     const response = await axios.post(
       `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
       {
-        contents,
+        contents: messages.map((msg: any) => ({
+          role: msg.role || 'user',
+          parts: [{ text: msg.content || '' }],
+        })),
       },
       {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       }
     );
 
     const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!reply) {
-      res.status(500).json({ error: 'No valid response from Gemini API' });
-      return;
+      return res.status(500).json({ error: 'No valid response from Gemini API' });
     }
 
     res.status(200).json({ reply });
