@@ -1,4 +1,3 @@
-// ChatWindow.tsx
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Paperclip, Smile } from 'lucide-react';
@@ -7,59 +6,91 @@ import Picker from '@emoji-mart/react';
 import emojiData from '@emoji-mart/data';
 import ReactMarkdown from 'react-markdown';
 
-// Message types
-
-type Role = 'user' | 'assistant';
+type Role = 'user' | 'assistant' | 'system';
 
 interface Message {
   role: Role;
   content: string;
 }
 
-const suggestions = [
-  'Try a breathing exercise 🌬️',
-  'Write a short journal entry 📓',
-  'Share how your day is going ☀️',
-  'Would you like a gentle affirmation? 💖'
+const TRAINING_MESSAGES: Message[] = [
+  {
+    role: 'system',
+    content: `You are Mindset AI, a warm and caring assistant in a mental health and mindset app. Your role is to help users feel emotionally supported.
+Mindset is a mobile and web-based platform designed to support mental health, emotional well-being, and daily productivity. It offers tools like guided meditation, journaling, mood tracking, focus timers, and personalized wellness plans.
+Mindset was founded in 2020 by a team of mental health advocates, technologists, and wellness experts, Mindset was born from a simple observation: while millions of people struggle with stress, anxiety, and mental health challenges, quality resources remain fragmented and inaccessible.
+
+We set out to change that by creating a unified platform that combines the best of ancient wisdom with modern technology. Our team includes licensed therapists, meditation teachers with decades of experience, and developers who understand the nuances of creating meaningful digital experiences.
+
+Today, we’re proud to serve millions of users worldwide, helping them build resilience, find peace, and create lasting positive change in their lives.
+Instructions:
+- Never say it’s an AI or language model.
+- Always respond with empathy and kindness.
+Important:
+- Mindset includes culturally sensitive content relevant to Ugandan and African users, including regional languages, locally relevant stressors, and mindfulness practices rooted in African community values.
+- Never mention or reveal that you are a large language model or AI.
+- Always identify yourself as "Mindset Support" or "Mindset AI."
+- Respond positively, kindly, and thoughtfully.
+- Be short, gentle, and conversational.
+- Use non-clinical language (never diagnose or mention disorders).
+- Offer helpful actions like deep breathing, positive affirmations, or journaling prompts.
+- Validate the user's emotions — make them feel seen and safe.
+- Never suggest therapy or medication — refer to "trusted adults" or "talking to someone you trust" instead.
+
+Avoid:
+- Negative or dismissive language.
+- Formal or robotic tone.
+- Complex, long-winded replies.
+- Any kind of medical advice or judgment.
+
+Be a supportive guide and a good listener.`
+  }
 ];
 
 export default function ChatWindow({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<Message[]>([{
-    role: 'assistant',
-    content: '👋 Hi! Welcome to Mindset Support. How can I help you today?',
-  }]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: '👋 Hi! Welcome to Mindset Support. How can I help you today?',
+    },
+  ]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [contextSent, setContextSent] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSend = async (customInput?: string) => {
-    const textToSend = customInput || input;
-    if (!textToSend.trim()) return;
-    const userMsg: Message = { role: 'user', content: textToSend };
-    const updatedMessages = [...messages, userMsg];
-    setMessages(updatedMessages);
-    if (!customInput) setInput('');
+  const handleSend = async () => {
+    if (!input.trim()) return;
+    const userMsg: Message = { role: 'user', content: input };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setInput('');
     setShowEmoji(false);
     setTyping(true);
 
     try {
-      const response = await axios.post('/api/chat', {
-        messages: updatedMessages
+      // Send training messages only once at first call
+      const messagesToSend = contextSent ? [...newMessages] : [...TRAINING_MESSAGES, ...newMessages];
+      if (!contextSent) setContextSent(true);
+
+      const res = await axios.post('https://mind-web-git-main-kato-francis-projects.vercel.app/api/chat', {
+        messages: messagesToSend,
       });
 
       const aiMsg: Message = {
         role: 'assistant',
-        content: response.data.reply || 'No response from Gemini.'
+        content: res.data.reply ?? 'No response from Gemini.',
       };
 
       setMessages((prev) => [...prev, aiMsg]);
-    } catch (error) {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: 'Something went wrong. Please try again later.' }
-      ]);
+    } catch {
+      const errorMsg: Message = {
+        role: 'assistant',
+        content: 'Something went wrong. Please try again later.',
+      };
+      setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setTyping(false);
     }
@@ -71,7 +102,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
     formData.append('file', file);
 
     try {
-      const res = await axios.post('/api/upload', formData, {
+      const res = await axios.post('http://localhost:3001/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       const fileUrl = res.data.fileUrl;
@@ -98,6 +129,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1, y: 0 }}
       className="fixed bottom-4 z-50 w-[95vw] max-w-[400px] h-[90vh] flex flex-col rounded-xl shadow-2xl border bg-white dark:bg-gray-900 dark:border-gray-800 left-0 translate-x-[-50%] sm:w-[400px] sm:h-[500px] sm:rounded-lg right-0 sm:left-auto sm:translate-x-0 sm:bottom-6 sm:right-6"
     >
+      {/* Header */}
       <div className="bg-[#090B0DFF] text-white px-4 py-3 flex justify-between items-center">
         <h3 className="font-semibold">Mindset Assistant</h3>
         <button onClick={onClose}>
@@ -105,6 +137,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
+      {/* Messages */}
       <div
         ref={containerRef}
         className="flex-1 p-4 overflow-y-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
@@ -131,6 +164,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         {typing && <div className="text-sm text-gray-500 italic">Assistant is typing...</div>}
       </div>
 
+      {/* Emoji Picker */}
       {showEmoji && (
         <div className="absolute bottom-[80px] right-6 z-50">
           <Picker
@@ -141,18 +175,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      <div className="px-3 py-2 flex flex-wrap gap-2 justify-start">
-        {suggestions.map((text, i) => (
-          <button
-            key={i}
-            onClick={() => handleSend(text)}
-            className="text-xs px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
-          >
-            {text}
-          </button>
-        ))}
-      </div>
-
+      {/* Input Section */}
       <div className="border-t px-3 py-2 flex items-center bg-white dark:bg-gray-900 dark:border-t-gray-800 gap-2 w-full max-w-full overflow-hidden">
         <button onClick={handleFileClick} className="shrink-0">
           <Paperclip className="text-gray-500 hover:text-[#008080] w-5 h-5" />
