@@ -1,41 +1,35 @@
-// email.ts (or subscribeController.ts)
-
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 
-dotenv.config();
+const emailUser = process.env.EMAIL_FROM;
+const emailPass = process.env.EMAIL_PASSWORD;
 
-export async function sendSubscriptionEmail(userEmail: string) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_FROM,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
+export const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: emailUser,
+    pass: emailPass,
+  },
+});
 
-  // Email to Mindset admin
-  const adminMsg = {
-    from: `"Mindset Subscriptions" <${process.env.EMAIL_FROM}>`,
-    to: 'maindcet@gmail.com',
-    subject: 'New Subscription Alert',
-    text: `A new user subscribed: ${userEmail}`,
+export const sendSubscriptionEmails = async (subscriberEmail: string) => {
+  const adminEmail = process.env.EMAIL_TO;
+
+  // Email to Admin
+  const adminMailOptions = {
+    from: emailUser,
+    to: adminEmail,
+    subject: 'New Mindset Subscriber',
+    text: `A new user has subscribed to Mindset: ${subscriberEmail}`,
   };
 
-  // Email to user
-  const userMsg = {
-    from: `"Mindset" <${process.env.EMAIL_FROM}>`,
-    to: userEmail,
-    subject: 'Thank you for subscribing to Mindset 💚',
-    text: `Hi there,\n\nThanks for subscribing to Mindset! We're excited to support your mental wellness journey.\n\nStay tuned for more tips and support!\n\n– The Mindset Team`,
+  // Email to Subscriber
+  const userMailOptions = {
+    from: emailUser,
+    to: subscriberEmail,
+    subject: 'Welcome to Mindset 💙',
+    text: `Hi there,\n\nThank you for subscribing to Mindset! We're excited to have you on board.\n\nStay well,\nMindset Team`,
   };
 
-  try {
-    await transporter.sendMail(adminMsg);
-    await transporter.sendMail(userMsg);
-    return { success: true };
-  } catch (error) {
-    console.error('Email sending error:', error);
-    return { success: false, error };
-  }
-}
+  await transporter.sendMail(adminMailOptions);
+  await transporter.sendMail(userMailOptions);
+};
