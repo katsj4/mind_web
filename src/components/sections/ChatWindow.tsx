@@ -96,43 +96,48 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
-  const [contextSent, setContextSent] = useState(false);
+  const [] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
-    const userMsg: Message = { role: 'user', content: input };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
-    setInput('');
-    setShowEmoji(false);
-    setTyping(true);
+  if (!input.trim()) return;
 
-    try {
-      const messagesToSend = contextSent ? [...newMessages] : [...TRAINING_MESSAGES, ...newMessages];
-      if (!contextSent) setContextSent(true);
+  const userMsg: Message = { role: 'user', content: input };
+  const newMessages = [...messages, userMsg];
 
-      const res = await axios.post('https://mind-web-git-main-kato-francis-projects.vercel.app/api/chat', {
-        messages: messagesToSend,
-      });
+  setMessages(newMessages);
+  setInput('');
+  setShowEmoji(false);
+  setTyping(true);
 
-      const aiMsg: Message = {
-        role: 'assistant',
-        content: res.data.reply ?? 'No response from Gemini.',
-      };
+  try {
+    // Always send the system instruction at the top
+    const messagesToSend = [
+      TRAINING_MESSAGES[0], // only the system message
+      ...newMessages
+    ];
 
-      setMessages((prev) => [...prev, aiMsg]);
-    } catch (error) {
-      const errorMsg: Message = {
-        role: 'assistant',
-        content: 'Something went wrong. Please try again later.',
-      };
-      setMessages((prev) => [...prev, errorMsg]);
-    } finally {
-      setTyping(false);
-    }
-  };
+    const res = await axios.post('https://mind-web-git-main-kato-francis-projects.vercel.app/api/chat', {
+      messages: messagesToSend,
+    });
+
+    const aiMsg: Message = {
+      role: 'assistant',
+      content: res.data.reply ?? 'No response from Gemini.',
+    };
+
+    setMessages((prev) => [...prev, aiMsg]);
+  } catch (error) {
+    const errorMsg: Message = {
+      role: 'assistant',
+      content: 'Something went wrong. Please try again later.',
+    };
+    setMessages((prev) => [...prev, errorMsg]);
+  } finally {
+    setTyping(false);
+  }
+};
 
   const handleFileSend = async (file: File | undefined) => {
     if (!file) return;

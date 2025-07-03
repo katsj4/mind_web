@@ -48,10 +48,10 @@ export const AboutUsSection: React.FC = () => {
           className="text-center max-w-4xl mx-auto mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
-            Our Mission is <span className="text-primary-500">Your Wellness</span>
+            Our Mission is;<p className="text-primary-500 italic bold color-##008080">Mental wellness that moves with you, everyday-everywhere.</p>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            We believe that mental wellness should be as accessible as physical fitness. That’s why we’ve created a comprehensive platform that makes mindfulness, meditation, and mental health resources available to everyone, everywhere.
+            At Mindset, we believe mental wellness should be a part of everyday life not just a response to crisis. We are here to create a supportive, judgment free space that fits seamlessly into your routine. Whether you're at home, on campus, or on the move, Mindset brings healing, focus, and emotional balance right to your fingertips. Because your mind deserves care every single day, everywhere you go.
           </p>
         </motion.div>
 
@@ -68,13 +68,18 @@ export const AboutUsSection: React.FC = () => {
               Our Story
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Founded in 2020 by a team of mental health advocates, technologists, and wellness experts, Mindset was born from a simple observation: while millions of people struggle with stress, anxiety, and mental health challenges, quality resources remain fragmented and inaccessible.
+              Mindset was born not in a boardroom, but in a university hallway where passionate students from Soroti University, Uganda, first came together, united by one concern: Why is mental health overlooked?.
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              We set out to change that by creating a unified platform that combines the best of ancient wisdom with modern technology. Our team includes licensed therapists, meditation teachers with decades of experience, and developers who understand the nuances of creating meaningful digital experiences.
+              As students ourselves, we saw it daily. Friends breaking down quietly. Bright minds dimmed by anxiety. Silent battles fought behind smiles. And yet, help always seemed far—too far. Hospitals were intimidating, therapy was expensive or unavailable, and stigma still silenced many. we wanted to bridge this gap using technology so we decided to create something digital, discreet, and deeply personal accessible both online and offline, especially in communities where smartphones are common but therapists aren’t?
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Mindset began to take shape—not just as an app, but as a movement. We wanted a platform where anyone could check in with their emotions, learn how to cope, and even speak to licensed therapists, all in one place. A space where support wasn’t something you only seek in crisis, but a natural part of daily life.
+              Initially, our dream was focused on the university—on students who, like us, needed a safe mental space. But the more we grew, the more we realized: Mental health isn't just a campus problem. It’s a people problem.
+
             </p>
             <p className="text-gray-600 dark:text-gray-400">
-              Today, we’re proud to serve millions of users worldwide, helping them build resilience, find peace, and create lasting positive change in their lives.
+              Whether you're a student, a boda rider, a teacher, or a parent—everyone faces stress, pressure, and moments of struggle. That’s why Mindset isn’t just for students anymore. It’s for Uganda. For Africa. For the world. Though we started in Soroti, our dream is far bigger. We are building a future where mental health care is not a privilege—it’s a right. One click, one tap, one small conversation at a time.
             </p>
           </motion.div>
 
