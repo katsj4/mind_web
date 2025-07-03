@@ -31,17 +31,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const response = await axios.post(
-      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
-      {
-        contents: messages.map((msg: any) => ({
-          role: msg.role || 'user',
-          parts: [{ text: msg.content || '' }],
-        })),
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+  `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+  {
+    contents: messages.map((msg: any) => ({
+      role: msg.role === 'system' ? 'user' : msg.role || 'user', // 👈 fix system role
+      parts: [{ text: msg.content || '' }],
+    })),
+  },
+  {
+    headers: { 'Content-Type': 'application/json' },
+  }
+);
+
 
     const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
 
