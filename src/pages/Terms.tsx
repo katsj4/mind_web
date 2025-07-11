@@ -40,7 +40,7 @@ const Terms: React.FC = () => {
             If you do not agree, do not use the app or services.
           </p>
 
-          <h2>Who Can Use Mindset (Eligibility)</h2>
+          <h2><b>Who Can Use Mindset (Eligibility)</b></h2>
           <ul>
             <li>You must be 13 years or older</li>
             <li>If you are below 13, you must have permission from a parent or legal guardian</li>
@@ -52,7 +52,7 @@ const Terms: React.FC = () => {
             It is not for emergency or crisis situations.
           </p>
 
-          <h2>What Mindset Offers (Services)</h2>
+          <h2><b>What Mindset Offers (Services)</b></h2>
           <ul>
             <li>Guided meditation, mindfulness activities, breathing exercises, and journaling tools</li>
             <li>Educational content on stress, anxiety, relationships, and well-being</li>
@@ -62,11 +62,11 @@ const Terms: React.FC = () => {
           </ul>
 
           <p>
-            ⚠️ Important: Mindset is not a substitute for in-person medical advice, diagnosis, or treatment.
+           <b> ⚠️ Important:</b> Mindset is not a substitute for in-person medical advice, diagnosis, or treatment.
             If you are in danger or having a medical emergency, contact emergency services or visit a hospital.
           </p>
 
-          <h2>Your Responsibilities as a User</h2>
+          <h2><b>Your Responsibilities as a User</b></h2>
           <ul>
             <li>Use the app responsibly for personal, non-commercial purposes</li>
             <li>Provide accurate information when creating/updating your account</li>
@@ -77,7 +77,7 @@ const Terms: React.FC = () => {
 
           <p>We reserve the right to suspend or delete your account if you violate any part of these Terms.</p>
 
-          <h2>Data Security and Privacy</h2>
+          <h2><b>Data Security and Privacy</b></h2>
           <p>
             By using Mindset, you accept our Privacy Policy, which outlines how we collect, store, and use personal data.
             We respect your rights under Uganda’s 2019 Data Protection and Privacy Act.
@@ -86,7 +86,7 @@ const Terms: React.FC = () => {
             We do not sell your data. All information is handled confidentially and in compliance with legal and professional requirements.
           </p>
 
-          <h2>Health and Wellbeing Disclaimer</h2>
+          <h2><b>Health and Wellbeing Disclaimer</b></h2>
           <p>
             Mindset is not a medical app, though it provides self-help and wellness resources.
             We do not offer clinical diagnoses or prescribe medication.
@@ -95,13 +95,13 @@ const Terms: React.FC = () => {
             Please consult a certified healthcare professional if you experience severe distress or mental illness.
           </p>
 
-          <h2>Intellectual Property and Copyright</h2>
-          <p>All content in Mindset is:</p>
+          <h2><b>Intellectual Property and Copyright</b></h2>
+          <p><i>All content in Mindset is:</i></p>
           <ul>
             <li>Owned by Mindset Uganda, or</li>
             <li>Licensed by third parties</li>
           </ul>
-          <p>This includes:</p>
+          <p><i>This includes:</i></p>
           <ul>
             <li>Audio and video</li>
             <li>Articles and exercises</li>
@@ -110,7 +110,7 @@ const Terms: React.FC = () => {
           </ul>
           <p>You may not copy, modify, or distribute any content without permission.</p>
 
-          <h2>Subscriptions and Payments</h2>
+          <h2><b>Subscriptions and Payments</b></h2>
           <ul>
             <li>Some features are free, others require payment</li>
             <li>Prices are in Ugandan Shillings (UGX)</li>
@@ -119,36 +119,36 @@ const Terms: React.FC = () => {
             <li>No refunds unless legally required</li>
           </ul>
 
-          <h2>Account Suspension or Termination</h2>
+          <h2><b>Account Suspension or Termination</b></h2>
           <ul>
             <li>We may suspend or delete accounts for violating terms or laws</li>
             <li>We may act if other users are harmed</li>
             <li>You may delete your account anytime by emailing us</li>
           </ul>
 
-          <h2>Limitation of Liability</h2>
+          <h2><b>Limitation of Liability</b></h2>
           <p>
             Mindset strives to provide accurate, evidence-based content.
             However, individual results vary. We are not liable for misuse or unmet expectations.
             Seek professional help for medical conditions.
           </p>
 
-          <h2>Changes to These Terms</h2>
+          <h2><b>Changes to These Terms</b></h2>
           <p>
             We may update these Terms periodically. Continued use means you accept the latest version.
             Changes will be posted in-app and/or sent via email.
           </p>
 
-          <h2>Governing Law and Dispute Resolution</h2>
+          <h2><b>Governing Law and Dispute Resolution</b></h2>
           <p>These Terms are governed by Ugandan law.</p>
           <p>
             Disputes should first be resolved informally. If needed, they will be handled by Ugandan courts.
           </p>
 
-          <h2>Contact Us</h2>
+          <h2><b>Contact Us</b></h2>
           <p>
             Mindset Uganda Ltd<br />
-            Email: <a href="mailto:midset@gmail.com" className="text-[#008080] underline">midset@gmail.com</a><br />
+            Email: <a href="mailto:maindcet@gmail.com" className="text-[#008080] underline">midset@gmail.com</a><br />
             Website: www.mindset.com
           </p>
         </div>

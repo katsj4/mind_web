@@ -83,7 +83,7 @@ const PrivacyPolicy: React.FC = () => {
             <li>Login information: Technical logs include your IP address, web browser type, app version, timestamps of access, pages or screens seen, and the page that directed you to our website.</li>
           </ul>
 
-          <h2>Use of Information</h2>
+          <h2><b>Use of Information</b></h2>
           <ul>
             <li>To deliver and maintain our services, which includes locating and resolving technical problems.</li>
             <li>To complete orders or subscriptions and handle payments.</li>
@@ -97,8 +97,8 @@ const PrivacyPolicy: React.FC = () => {
             <li>To hold promotional events, sweepstakes, or contests in which you may choose to take part.</li>
           </ul>
 
-          <h2>Disclosures of Information</h2>
-          <p>We may share information about you in the following situations:</p>
+          <h2><b>Disclosures of Information</b></h2>
+          <p><b>We may share information about you in the following situations:</b></p>
           <ul>
             <li>With your consent or at your direction</li>
             <li>With third-party service providers</li>
@@ -111,7 +111,7 @@ const PrivacyPolicy: React.FC = () => {
             <li>In de-identified or aggregated form</li>
           </ul>
 
-          <h2>Advertising and Analytics Services Provided by Others</h2>
+          <h2><b>Advertising and Analytics Services Provided by Others</b></h2>
           <p>We collaborate with third-party partners who offer analytics and advertising services...</p>
           <ul>
             <li>Understand which features or content are most helpful</li>
@@ -126,51 +126,51 @@ const PrivacyPolicy: React.FC = () => {
             <li>Limit or disable tracking on mobile devices</li>
           </ul>
 
-          <h2>Data Transfer</h2>
+          <h2><b>Data Transfer</b></h2>
           <p>Mindset is based in Uganda but may process data internationally. Safeguards include user consent and legal agreements.</p>
 
-          <h2>Privacy Rights</h2>
+          <h2><b>Privacy Rights</b></h2>
           <ul>
             <li>Know, access, correct, delete, or opt out of your data</li>
             <li>Limit processing of sensitive data</li>
           </ul>
           <p>You can exercise these rights by emailing <a href="mailto:midset@gmail.com" className="text-[#008080] underline">midset@gmail.com</a></p>
 
-          <h2>Managing Targeted Advertising and Tracking Preferences</h2>
+          <h2><b>Managing Targeted Advertising and Tracking Preferences</b></h2>
           <ul>
             <li>Visit www.mindset.com/optout</li>
             <li>Use the Cookie Preferences Manager</li>
             <li>Enable Global Privacy Control (GPC) in supported browsers</li>
           </ul>
 
-          <h2>Verification</h2>
+          <h2><b>Verification</b></h2>
           <p>We may request identity verification before processing requests.</p>
 
-          <h2>Promotional Communications & Notifications</h2>
+          <h2><b>Promotional Communications & Notifications</b></h2>
           <ul>
             <li>Unsubscribe from promotional emails via footer links</li>
             <li>Disable push notifications via device settings</li>
           </ul>
 
-          <h2>Data Retention</h2>
+          <h2><b>Data Retention</b></h2>
           <p>We retain personal data only as long as necessary or as required by law.</p>
 
-          <h2>Children’s Privacy</h2>
+          <h2><b>Children’s Privacy</b></h2>
           <p>Mindset is for everyone, including children. We do not knowingly collect personal data from minors without permission.</p>
 
-          <h2>Advertising & Analytics by Others</h2>
+          <h2><b>Advertising & Analytics by Others</b></h2>
           <p>We may allow partners to deliver analytics using cookies and device identifiers. You may opt out as outlined earlier.</p>
 
-          <h2>Financial Incentives</h2>
+          <h2><b>Financial Incentives</b></h2>
           <p>We may offer rewards for surveys or testimonials. Participation is optional, and data is used only for that purpose.</p>
 
-          <h2>Changes to This Policy</h2>
+          <h2><b>Changes to This Policy</b></h2>
           <p>We may update this policy. Continued use means you agree to the changes.</p>
 
-          <h2>Contact Us</h2>
+          <h2><b>Contact Us</b></h2>
           <p>
             Mindset Team<br />
-            Email: <a href="mailto:midset@gmail.com" className="text-[#008080] underline">midset@gmail.com</a><br />
+            Email: <a href="mailto:maindcet@gmail.com" className="text-[#008080] underline">midset@gmail.com</a><br />
             Website: www.mindset.com
           </p>
         </div>

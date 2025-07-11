@@ -290,7 +290,7 @@ const Cookies: React.FC = () => {
             settings.
           </p>
 
-          <h2 className="text-2xl font-bold mb-4 mt-10">Data Retention and Policy Updates</h2>
+          <h2 className="text-2xl font-bold mb-4 mt-10"><b>Data Retention and Policy Updates</b></h2>
 
           <h3 className="text-xl font-bold mb-3 mt-6">Cookie Lifespans</h3>
           <ul className="list-disc list-inside mb-6 space-y-2">
@@ -304,7 +304,7 @@ const Cookies: React.FC = () => {
 
           <h3 className="text-xl font-bold mb-3 mt-6">Updates to This Policy</h3>
           <p className="mb-4">
-            We may revise this Policy to reflect:
+            <b>We may revise this Policy to reflect:</b>
           </p>
           <ul className="list-disc list-inside mb-8 space-y-2">
             <li>Changes in applicable laws</li>
@@ -312,7 +312,7 @@ const Cookies: React.FC = () => {
             <li>Enhancements in data protection</li>
           </ul>
           <p className="mb-8">
-            Major updates will be communicated via:
+           <b>Major updates will be communicated via:</b> 
           </p>
           <ul className="list-disc list-inside mb-10 space-y-2">
             <li>In-app notifications</li>
@@ -320,7 +320,7 @@ const Cookies: React.FC = () => {
             <li>Email alerts (if applicable)</li>
           </ul>
 
-          <h2 className="text-2xl font-bold mb-4 mt-10">Legal Basis for Using Cookies</h2>
+          <h2 className="text-2xl font-bold mb-4 mt-10"><b>Legal Basis for Using Cookies</b></h2>
           <p className="mb-4">
             We process cookies based on one or more of the following legal
             grounds:
@@ -393,7 +393,7 @@ const Cookies: React.FC = () => {
             tracking technologies, please contact us:
           </p>
           <p className="mb-10">
-            Mindset Technologies Ltd.
+            <b>Mindset Technologies Ltd.</b>
             <br />
             Email: <a href="mailto:mindset@gmail.com" className="text-[#008080] underline">mindset@gmail.com</a>
             <br />
