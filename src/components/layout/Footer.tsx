@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Heart, Instagram, Twitter, Facebook, Youtube, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Replace with your real subscription API endpoint
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) throw new Error('Subscription failed');
+
+      alert(`Thank you for subscribing to Mindset, ${email}!`);
+      setEmail('');
+    } catch (error) {
+      console.error(error);
+      alert('Subscription failed. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <footer className="bg-dark-800 text-gray-200 pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,27 +51,31 @@ export const Footer: React.FC = () => {
             <p className="mt-4 text-gray-400 max-w-md">
               Your personalized mental wellness companion, offering expert-guided meditation, stress relief, and motivational content designed for your unique journey.
             </p>
-            
+
             {/* Newsletter Signup */}
             <div className="mt-8">
               <h3 className="font-medium text-gray-300 mb-3">Get wellness tips in your inbox</h3>
-              <form className="flex flex-col sm:flex-row gap-3 w-full">
-  <input
-    type="email"
-    placeholder="Your email address"
-    className="w-full sm:flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-  />
-  <button 
-    type="submit"
-    className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors"
-  >
-    Subscribe
-  </button>
-</form>
-
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 w-full">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full sm:flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  required
+                  disabled={loading}
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </form>
             </div>
           </div>
-          
+
           {/* Platform Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Platform</h3>
@@ -49,7 +86,7 @@ export const Footer: React.FC = () => {
               <li><a href="#updates" className="text-gray-400 hover:text-primary-400 transition-colors">Updates</a></li>
             </ul>
           </div>
-          
+
           {/* Support Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Support</h3>
@@ -60,7 +97,7 @@ export const Footer: React.FC = () => {
               <li><a href="#feedback" className="text-gray-400 hover:text-primary-400 transition-colors">Feedback</a></li>
             </ul>
           </div>
-          
+
           {/* Company Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Company</h3>
@@ -72,7 +109,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-        
+
         {/* Legal Links */}
         <div className="mt-12 pt-8 border-t border-dark-700">
           <div className="flex flex-col md:flex-row md:justify-between">
@@ -94,11 +131,10 @@ export const Footer: React.FC = () => {
                     Cookie Policy
                   </Link>
                 </li>
-                {/* <li><a href="#cookies" className="text-gray-400 hover:text-primary-400 transition-colors">Cookie Policy</a></li> */}
                 <li><a href="#accessibility" className="text-gray-400 hover:text-primary-400 transition-colors">Accessibility</a></li>
               </ul>
             </div>
-            
+
             {/* Social Media Links */}
             <div className="mt-8 md:mt-0">
               <p className="text-gray-500 mb-4">© 2025 Mindset. All rights reserved.</p>
