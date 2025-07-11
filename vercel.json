@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/privacy",
+      "destination": "/PrivacyPolicy"
+    },
+    {
+      "source": "/terms",
+      "destination": "/Terms"
+    },
+    {
+      "source": "/cookies",
+      "destination": "/Cookies"
+    }
+  ]
+}
