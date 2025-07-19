@@ -9,6 +9,7 @@ import HowItWorks from './pages/how-it-works';
 import Cookies from './pages/cookies';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
+import MindsetAI from './pages/mindset';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function AppContent() {
       <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>} />
       <Route path="/Terms" element={<Terms />} />
       <Route path="/cookies" element={<Cookies  />} />
+      
     </Routes>
   ) : (
     <MainLayout>
@@ -30,6 +32,7 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="mindset/" element={<MindsetAI/>} />
       </Routes>
     </MainLayout>
   );

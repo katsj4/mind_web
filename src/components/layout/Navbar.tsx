@@ -44,9 +44,14 @@ export const Navbar: React.FC = () => {
     { name: 'Home', sectionId: undefined },
     { name: 'Features', sectionId: 'features' },
     { name: 'About', sectionId: 'about' },
-    { name: 'Mindset AI', sectionId: 'ai' },
+    { name: 'Mindset AI', path: '/mindset' },
     { name: 'Download', sectionId: 'download' },
   ];
+useEffect(() => {
+  if (location.pathname !== '/') {
+    setActiveSection('');
+  }
+}, [location.pathname]);
 
   return (
     <header 
@@ -65,25 +70,41 @@ export const Navbar: React.FC = () => {
             </div>
             <span className="text-xl font-semibold text-primary-500">Mindset</span>
           </Link>
+{/* Desktop Navigation */}
+<nav className="hidden md:flex items-center space-x-8">
+  {navLinks.map((link) => (
+    <div key={link.name} className="relative group">
+      {link.path ? (
+        // External page link (like /mindset-ai)
+       <Link
+  to={link.path}
+  className={`text-sm font-medium py-2 transition-colors ${
+    location.pathname === link.path
+      ? 'text-[#008080] font-semibold'
+      : 'text-gray-700 dark:text-gray-200 hover:text-[#008080] dark:hover:text-primary-400'
+  }`}
+>
+  {link.name}
+</Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <div key={link.name} className="relative group">
-                <button
-                  onClick={() => handleNavClick(link.sectionId, link.name)}
-                  className={`text-sm font-medium py-2 transition-colors ${
-                    activeSection === link.name
-                      ? 'text-primary-500'
-                      : 'text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400'
-                  }`}
-                >
-                  {link.name}
-                </button>
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-              </div>
-            ))}
-          </nav>
+      ) : (
+        // Scroll to section
+        <button
+          onClick={() => handleNavClick(link.sectionId, link.name)}
+          className={`text-sm font-medium py-2 transition-colors ${
+            activeSection === link.name
+              ? 'text-primary-500'
+              : 'text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400'
+          }`}
+        >
+          {link.name}
+        </button>
+      )}
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+    </div>
+  ))}
+</nav>
+
 
           {/* Right Side Items */}
           <div className="flex items-center space-x-4">
