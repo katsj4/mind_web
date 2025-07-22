@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import {
   Clock,
   BrainCircuit,
@@ -13,13 +13,13 @@ import {
   Lightbulb,
   RefreshCcw,
   LineChart,
-  Scale,
+
   Star,
   ShieldHalf,
   BatteryCharging,
-  Award,
+  
   UserCheck,
-  Gem,
+
 } from "lucide-react";
 
 // Component: Phone Slider
@@ -40,7 +40,7 @@ const PhoneSlider = () => {
 
   return (
     <div className="relative">
-      <div className="bg-gray-900 rounded-[40px] p-4 w-[390px] h-[800px] shadow-2xl">
+      <div className="bg-gray-900 rounded-[40px] p-4 w-[350px] h-[700px] shadow-2xl">
         {/* Phone notch */}
         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-1/3 h-6 bg-gray-900 rounded-b-xl z-10"></div>
         
@@ -89,14 +89,14 @@ const PhoneSlider = () => {
           </div>
           
           {/* Download CTA */}
-          <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg">
+          {/* <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg">
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center mr-2">
                 <ShieldCheck className="text-teal-700" size={20} />
               </div>
               <span className="font-semibold text-teal-700">100% Secure</span>
             </div>
-          </div>
+          </div> */}
         </div>
         
         {/* Home button */}
@@ -361,11 +361,6 @@ const features = [
     icon: <HeartHandshake className="text-teal-700 dark:text-teal-300" />,
     title: "Motivational Growth Coaching",
     description: "Provides daily affirmations, goal-setting reminders, and thought reframing to build resilience."
-  },
-  {
-    icon: <Sunrise className="text-teal-700 dark:text-teal-300" />,
-    title: "Holistic Mental Health Companion",
-    description: "Promotes emotional wellness, self-compassion, and healthier lifestyle choices."
   }
 ];
 
