@@ -318,7 +318,7 @@ const FinalCTASection = () => (
 // Main App Component
 function App() {
   return (
-    <div className="min-h-screen pt-24 bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-10 flex justify-center items-start">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-10 flex justify-center items-start">
       <div className="w-full pt-24 max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-10">
         <HeroSection />
         <FeaturesSection />
