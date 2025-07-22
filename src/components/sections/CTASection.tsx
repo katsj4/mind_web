@@ -27,7 +27,7 @@ export const CTASection: React.FC = () => {
                 className="shadow-lg !rounded-full"
                 icon={<Download className="h-5 w-5" />}
               >
-                Download for iOS
+                Download for Android
               </Button>
               <Button
                 variant="secondary"
@@ -35,7 +35,7 @@ export const CTASection: React.FC = () => {
                 className="shadow-lg !rounded-full"
                 icon={<Download className="h-5 w-5" />}
               >
-                Download for Android
+                Download for iOS
               </Button>
             </div>
           </motion.div>
