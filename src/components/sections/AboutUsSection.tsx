@@ -71,11 +71,11 @@ export const AboutUsSection: React.FC = () => {
               Mindset was born not in a boardroom, but in a university hallway where passionate students from Soroti University, Uganda, first came together, united by one concern: Why is mental health overlooked?.
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              As students ourselves, we saw it daily. Friends breaking down quietly. Bright minds dimmed by anxiety. Silent battles fought behind smiles. And yet, help always seemed far—too far. Hospitals were intimidating, therapy was expensive or unavailable, and stigma still silenced many. we wanted to bridge this gap using technology so we decided to create something digital, discreet, and deeply personal accessible both online and offline, especially in communities where smartphones are common but therapists aren’t?
+              As students ourselves, we saw it daily. Friends breaking down quietly. Bright minds dimmed by anxiety. Silent battles fought behind smiles. And yet, help always seemed far too far. Hospitals were intimidating, therapy was expensive or unavailable, and stigma still silenced many. we wanted to bridge this gap using technology so we decided to create something digital, discreet, and deeply personal accessible both online and offline, especially in communities where smartphones are common but therapists aren’t?
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Mindset began to take shape—not just as an app, but as a movement. We wanted a platform where anyone could check in with their emotions, learn how to cope, and even speak to licensed therapists, all in one place. A space where support wasn’t something you only seek in crisis, but a natural part of daily life.
-              Initially, our dream was focused on the university—on students who, like us, needed a safe mental space. But the more we grew, the more we realized: Mental health isn't just a campus problem. It’s a people problem.
+              Initially, our dream was focused on the university on students who, like us, needed a safe mental space. But the more we grew, the more we realized: Mental health isn't just a campus problem. It’s a people problem.
 
             </p>
             <p className="text-gray-600 dark:text-gray-400">
@@ -135,32 +135,60 @@ export const AboutUsSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Meet Our Expert Team Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-20 bg-teal-600 rounded-lg p-8 text-center text-white"
-        >
-          <h3 className="text-2xl md:text-3xl font-bold mb-12">
-            Meet Our Expert Team
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {expertTeam.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <p className="text-4xl font-bold">{item.count}</p>
-                <p className="text-lg">{item.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+       {/* Donations / Support Us Section */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.5 }}
+  className="mt-20 bg-[#008080] rounded-lg p-8 text-center text-white"
+>
+  <h3 className="text-2xl md:text-3xl font-bold mb-6">
+    Support Our Mission
+  </h3>
+  <p className="text-lg mb-8 max-w-2xl mx-auto">
+    If you enjoy what we do, consider supporting us on Ko-fi! Every little bit helps us continue our work and means the world to us!
+  </p>
+  <motion.a
+    href="https://ko-fi.com/mindsetone"
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="inline-flex items-center justify-center px-8 py-4 bg-gray-100 hover:bg-[#90ECECFF] rounded-full font-bold text-gray-900 shadow-lg transition-colors duration-300"
+  >
+    <svg className="w-6 h-6 mr-2" fill="[#008080]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.943-.669-1.864-.669-1.864s-.01-3.954.206-6.798h14.345c.213 2.03 1.446 6.138 1.446 6.138.368 1.454.098 2.008-.423 3.466z"/>
+    </svg>
+    Support Us on Ko-fi
+  </motion.a>
+</motion.div>
+{/* Meet Our Expert Team Section */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.5 }}
+  className="mt-20 bg-teal-600 rounded-lg p-8 text-center text-white"
+>
+  <h3 className="text-2xl md:text-3xl font-bold mb-12">
+    Meet Our Expert Team
+  </h3>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {expertTeam.map((item, index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+      >
+        <p className="text-4xl font-bold">{item.count}</p>
+        <p className="text-lg">{item.label}</p>
+      </motion.div>
+    ))}
+  </div>
+</motion.div>
       </div>
     </section>
   );
