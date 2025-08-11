@@ -10,6 +10,7 @@ import Cookies from './pages/cookies';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import MindsetAI from './pages/mindset';
+import Support from './pages/Suppport';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -33,6 +34,7 @@ function AppContent() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="mindset/" element={<MindsetAI/>} />
+        <Route path="/Support" element={<Support/>} />
       </Routes>
     </MainLayout>
   );

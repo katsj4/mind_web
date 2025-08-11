@@ -87,17 +87,69 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Support Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Support</h3>
-            <ul className="space-y-3">
-              <li><a href="#help" className="text-gray-400 hover:text-primary-400 transition-colors">Help Center</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-primary-400 transition-colors">Contact Us</a></li>
-              <li><a href="#community" className="text-gray-400 hover:text-primary-400 transition-colors">Community</a></li>
-              <li><a href="#feedback" className="text-gray-400 hover:text-primary-400 transition-colors">Feedback</a></li>
-            </ul>
-          </div>
-
+         {/* Support Links */}
+<div>
+  <h3 className="text-lg font-semibold mb-4">Support</h3>
+  <ul className="space-y-3">
+    <li>
+      <a 
+        href="/support#help" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          // If already on support page, prevent default to use smooth scroll
+          if (window.location.pathname === '/support') {
+            e.preventDefault();
+            document.getElementById('help')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Help Center
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/support#contact" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          if (window.location.pathname === '/support') {
+            e.preventDefault();
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Contact Us
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/support#community" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          if (window.location.pathname === '/support') {
+            e.preventDefault();
+            document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Community
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/support#feedback" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          if (window.location.pathname === '/support') {
+            e.preventDefault();
+            document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Feedback
+      </a>
+    </li>
+  </ul>
+</div>
           {/* Company Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Company</h3>

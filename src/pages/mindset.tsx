@@ -6,7 +6,6 @@ import {
   Sparkles,
   ActivitySquare,
   HeartHandshake,
-  Sunrise,
   Brain,
   HeartPulse,
   Feather,
@@ -317,6 +316,9 @@ const FinalCTASection = () => (
 
 // Main App Component
 function App() {
+  useEffect(() => {
+         window.scrollTo(0, 0); // scroll to top when page loads
+       }, []);
   return (
     <div className="min-h-screen bg-white  dark:bg-gray-800 p-4 md:p-10 flex justify-center items-start">
       <div className="w-full pt-24 max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-10">

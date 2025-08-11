@@ -378,7 +378,7 @@ export default function FAQ() {
   }, [showAll]);
 
   return (
-    <section
+    <section id="faq-section"
       aria-label="Frequently Asked Questions"
       className="py-28 bg-white/90 dark:bg-gray-900"
     >
