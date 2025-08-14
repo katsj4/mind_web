@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 const Support = () => {
   const location = useLocation();
@@ -222,65 +223,87 @@ const Support = () => {
     </div>
     <div className="bg-gray-50 p-6 rounded-lg dark:text-gray-800">
       <h3 className="text-xl font-semibold mb-4">Send us a Message</h3>
-      <form 
-        className="space-y-4"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target as HTMLFormElement);
-          const data = Object.fromEntries(formData);
-          
-          try {
-            await fetch('https://formspree.io/f/mailto:Maindcet@gmail.com', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data),
-            });
-            alert('Message sent successfully!');
-            (e.target as HTMLFormElement).reset();
-          } catch (error) {
-            alert('Failed to send message. Please try again.');
-          }
-        }}
-      >
-        <div>
-          <label htmlFor="name" className="block mb-1">Name</label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]" 
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block mb-1">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]" 
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="message" className="block mb-1">Message</label>
-          <textarea 
-            id="message" 
-            name="message"
-            rows={4} 
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]"
-            required
-          ></textarea>
-        </div>
-        <button 
-          type="submit" 
-          className="bg-[#008080] text-white px-6 py-2 rounded-md hover:bg-teal-700 transition-colors"
-        >
-          Send Message
-        </button>
-      </form>
+    <form 
+  id="contact-form"
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    try {
+      submitButton.textContent = 'Sending...';
+      submitButton.disabled = true;
+
+      await emailjs.sendForm(
+        'service_mindset',
+        'template_u95wu9p',
+        form,
+        'l46F_Pu9IVBuxCE6s'
+      );
+
+      // Success feedback
+      const successDiv = document.createElement('div');
+      successDiv.className = 'mt-2 text-sm text-green-500 text-center';
+      successDiv.textContent = 'Message sent successfully!';
+      form.appendChild(successDiv);
+      
+      // Clear form
+      form.reset();
+      setTimeout(() => successDiv.remove(), 5000);
+      
+    } catch (err) {
+      // Error feedback
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'mt-2 text-sm text-red-500 text-center';
+      errorDiv.textContent = 'Failed to send message. Please try again.';
+      form.appendChild(errorDiv);
+      setTimeout(() => errorDiv.remove(), 5000);
+      
+      console.error('Contact form error:', err);
+    } finally {
+      submitButton.textContent = 'Send Message';
+      submitButton.disabled = false;
+    }
+  }}
+  className="space-y-4"
+>
+  <div>
+    <label htmlFor="name" className="block mb-1 text-gray-700">Name</label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name"
+      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]" 
+      required
+    />
+  </div>
+  <div>
+    <label htmlFor="email" className="block mb-1 text-gray-700">Email</label>
+    <input 
+      type="email" 
+      id="email" 
+      name="email"
+      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]" 
+      required
+    />
+  </div>
+  <div>
+    <label htmlFor="message" className="block mb-1 text-gray-700">Message</label>
+    <textarea 
+      id="message" 
+      name="message"
+      rows={4} 
+      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#008080]"
+      required
+    ></textarea>
+  </div>
+  <button 
+    type="submit"
+    className="w-full bg-[#008080] text-white px-6 py-3 rounded-md hover:bg-teal-700 transition-colors disabled:opacity-50"
+  >
+    Send Message
+  </button>
+</form>
     </div>
   </div>
 </section>

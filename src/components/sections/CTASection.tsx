@@ -26,17 +26,18 @@ export const CTASection: React.FC = () => {
                 size="lg"
                 className="shadow-lg !rounded-full"
                 icon={<Download className="h-5 w-5" />}
+                onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
               >
                 Download for Android
               </Button>
-              <Button
+              {/* <Button
                 variant="secondary"
                 size="lg"
                 className="shadow-lg !rounded-full"
                 icon={<Download className="h-5 w-5" />}
               >
                 Download for iOS
-              </Button>
+              </Button> */}
             </div>
           </motion.div>
           

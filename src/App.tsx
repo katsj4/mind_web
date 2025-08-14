@@ -11,6 +11,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import MindsetAI from './pages/mindset';
 import Support from './pages/Suppport';
+import CompanyPage from './pages/company';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ function AppContent() {
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="mindset/" element={<MindsetAI/>} />
         <Route path="/Support" element={<Support/>} />
+        <Route path="/company" element={<CompanyPage />} />
       </Routes>
     </MainLayout>
   );

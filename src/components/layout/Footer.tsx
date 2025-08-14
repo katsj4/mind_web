@@ -1,40 +1,12 @@
 import React, { useState } from 'react';
 import { Heart, Instagram, Twitter, Facebook, Youtube, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import emailjs from '@emailjs/browser';
 export const Footer: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [] = useState('');
+  const [] = useState(false);
 
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (!email) {
-      alert('Please enter your email address.');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      // Replace with your real subscription API endpoint
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) throw new Error('Subscription failed');
-
-      alert(`Thank you for subscribing to Mindset, ${email}!`);
-      setEmail('');
-    } catch (error) {
-      console.error(error);
-      alert('Subscription failed. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  }
+  // Removed unused async function that caused a syntax error.
 
   return (
     <footer className="bg-dark-800 text-gray-200 pt-16 pb-8">
@@ -55,24 +27,65 @@ export const Footer: React.FC = () => {
             {/* Newsletter Signup */}
             <div className="mt-8">
               <h3 className="font-medium text-gray-300 mb-3">Get wellness tips in your inbox</h3>
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 w-full">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full sm:flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  required
-                  disabled={loading}
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors disabled:opacity-50"
-                >
-                  {loading ? 'Subscribing...' : 'Subscribe'}
-                </button>
-              </form>
+              <form 
+  id="subscription-form"
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    try {
+      submitButton.textContent = 'Sending...';
+      submitButton.disabled = true;
+
+      await emailjs.sendForm(
+        'service_mindset', // Your service ID
+        'template_rz4vjf5', // Your template ID
+        form,
+        'l46F_Pu9IVBuxCE6s' // Your public key
+      );
+
+      // Success feedback matching your design
+      const successDiv = document.createElement('div');
+      successDiv.className = 'mt-2 text-sm text-green-500';
+      successDiv.textContent = 'Thank you for subscribing!';
+      form.appendChild(successDiv);
+      
+      // Clear form and remove message after delay
+      form.reset();
+      setTimeout(() => successDiv.remove(), 5000);
+      
+    } catch (err) {
+      // Error feedback matching your design
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'mt-2 text-sm text-red-500';
+      errorDiv.textContent = 'Subscription failed. Please try again.';
+      form.appendChild(errorDiv);
+      setTimeout(() => errorDiv.remove(), 5000);
+      
+      console.error('Subscription error:', err);
+    } finally {
+      submitButton.textContent = 'Subscribe';
+      submitButton.disabled = false;
+    }
+  }}
+  className="flex flex-col sm:flex-row gap-3 w-full relative"
+>
+  <input
+    type="email"
+    name="email"
+    placeholder="Your email address"
+    className="w-full sm:flex-grow bg-dark-900 border border-dark-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+    required
+  />
+  <button
+    type="submit"
+    id="subscribe-button"
+    className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-md transition-colors disabled:opacity-50"
+  >
+    Subscribe
+  </button>
+</form>
             </div>
           </div>
 
@@ -82,8 +95,8 @@ export const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li><a href="#features" className="text-gray-400 hover:text-primary-400 transition-colors">Features</a></li>
               <li><a href="#download" className="text-gray-400 hover:text-primary-400 transition-colors">Download App</a></li>
-              <li><a href="#pricing" className="text-gray-400 hover:text-primary-400 transition-colors">Pricing</a></li>
-              <li><a href="#updates" className="text-gray-400 hover:text-primary-400 transition-colors">Updates</a></li>
+              {/* <li><a href="#pricing" className="text-gray-400 hover:text-primary-400 transition-colors">Pricing</a></li> */}
+              {/* <li><a href="#updates" className="text-gray-400 hover:text-primary-400 transition-colors">Updates</a></li> */}
             </ul>
           </div>
 
@@ -151,15 +164,57 @@ export const Footer: React.FC = () => {
   </ul>
 </div>
           {/* Company Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
-              <li><a href="#about" className="text-gray-400 hover:text-primary-400 transition-colors">About Us</a></li>
-              <li><a href="#careers" className="text-gray-400 hover:text-primary-400 transition-colors">Careers</a></li>
-              <li><a href="#press" className="text-gray-400 hover:text-primary-400 transition-colors">Press</a></li>
-              <li><a href="#partners" className="text-gray-400 hover:text-primary-400 transition-colors">Partners</a></li>
-            </ul>
-          </div>
+          {/* Company Links */}
+{/* Company Links */}
+<div>
+  <h3 className="text-lg font-semibold mb-4">Company</h3>
+  <ul className="space-y-3">
+    <li><a href="#about" className="text-gray-400 hover:text-primary-400 transition-colors">About Us</a></li>
+    <li>
+      <a 
+        href="/company#careers" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          // If already on company page, prevent default to use smooth scroll
+          if (window.location.pathname === '/company') {
+            e.preventDefault();
+            document.getElementById('careers')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Careers
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/company#press" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          if (window.location.pathname === '/company') {
+            e.preventDefault();
+            document.getElementById('press')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Press
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/company#partners" 
+        className="text-gray-400 hover:text-primary-400 transition-colors"
+        onClick={(e) => {
+          if (window.location.pathname === '/company') {
+            e.preventDefault();
+            document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Partners
+      </a>
+    </li>
+  </ul>
+</div>
         </div>
 
         {/* Legal Links */}
@@ -169,12 +224,12 @@ export const Footer: React.FC = () => {
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="flex flex-col space-y-3">
                 <li>
-                  <Link to="/PrivacyPolicy" className="text-gray-400 hover:text-primary-400 transition-colors">
+                  <Link to="https://mindset-privacy-policy.vercel.app/" className="text-gray-400 hover:text-primary-400 transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms" className="text-gray-400 hover:text-primary-400 transition-colors">
+                  <Link to="https://mindset-terms.vercel.app/ " className="text-gray-400 hover:text-primary-400 transition-colors">
                     Terms of Service
                   </Link>
                 </li>

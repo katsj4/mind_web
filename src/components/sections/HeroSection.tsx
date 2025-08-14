@@ -60,6 +60,7 @@ export const HeroSection: React.FC = () => {
                 variant="primary"
                 size="lg"
                 icon={<Download className="h-5 w-5" />}
+                onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
               >
                 Download App Now
               </Button>

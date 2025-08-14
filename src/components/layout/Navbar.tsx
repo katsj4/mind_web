@@ -4,6 +4,7 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 import { Button } from '../ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { link } from 'fs';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -113,6 +114,7 @@ useEffect(() => {
               variant="primary" 
               className="hidden sm:flex"
               icon={<Download className="h-4 w-4 mr-2" />}
+              onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
             >
               Get App
             </Button>
@@ -164,6 +166,7 @@ useEffect(() => {
                   variant="primary" 
                   className="w-full"
                   icon={<Download className="h-4 w-4 mr-2" />}
+                  onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
                 >
                   Get App
                 </Button>
