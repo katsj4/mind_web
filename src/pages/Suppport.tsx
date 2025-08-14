@@ -213,7 +213,12 @@ const Support = () => {
           <h4 className="font-medium">Phone:</h4>
           <a href="tel:+256765125504" className="text-[#008080] hover:underline">+256 765 125 504</a> <a className='text'> / </a> <a href="tel:+256707902530" className="text-[#008080] hover:underline">+256 707 902 530</a>
           <h4 className="font-medium">Email:</h4>
-          <a href="mailto:support@mindsetapp.com" className="text-[#008080] hover:underline">support@mindsetapp.com</a>
+          <a 
+  href="mailto:maindcet@gmail.com" 
+  className="text-[#008080] hover:underline"
+>
+  support@mindsetapp.com
+</a>
         </div>
         <div>
           <h4 className="font-medium">Business Hours:</h4>
