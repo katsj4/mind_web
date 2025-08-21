@@ -41,26 +41,61 @@ const jobOpenings = [
       "Excellent writing and communication skills",
       "Understanding of CBT and other therapeutic approaches"
     ]
-  }
+  },
+
+  {
+  id: 3,
+  title: "Mindset Speaker",
+  type: "Full-time",
+  location: "Hybrid",
+  description: "Inspire, educate, and empower audiences to develop a growth mindset, resilience, and positive life perspectives through impactful talks and workshops.",
+  responsibilities: [
+    "Deliver engaging keynote speeches and workshops on mindset and personal growth",
+    "Share practical strategies for building resilience and self-confidence",
+    "Motivate audiences to adopt positive habits and overcome challenges",
+    "Collaborate with event organizers and institutions to tailor talks to specific audiences"
+  ],
+  requirements: [
+    "Degree in Psychology, Education, Communication, or related field",
+    "Proven experience as a motivational or keynote speaker",
+    "Strong storytelling and public speaking skills",
+    "Ability to engage diverse audiences with clarity and inspiration"
+  ]
+}
+
 ];
 
 // Mock data for press
 const pressArticles = [
-  {
-    id: 1,
-    title: "Mindset App Featured in TechCrunch",
-    date: "May 15, 2023",
-    excerpt: "Mindset is revolutionizing how we approach mental wellness, making professional-grade tools available to everyone.",
-    url: "#"
-  },
-  {
-    id: 2,
-    title: "Interview with Our Founder",
-    date: "March 2, 2023",
-    excerpt: "How a personal journey led to creating an app that's helping thousands with their mental health.",
-    url: "#"
-  }
-];
+    {
+      id: 1,
+      title: "Mindset App Featured in TechCrunch",
+      date: "May 15, 2023",
+      excerpt:
+        "Mindset is revolutionizing how we approach mental wellness, making professional-grade tools available to everyone.",
+      content: `
+        <h2 class="text-2xl font-bold mb-2">Mindset App Featured in TechCrunch</h2>
+        <p>The Mindset app was recently highlighted in TechCrunch for its innovative approach 
+        to mental wellness. The app brings together evidence-based techniques, 
+        guided exercises, and real-time support to help users build resilience 
+        and develop a healthier mindset.</p>
+      `,
+    },
+    {
+      id: 2,
+      title: "Interview with Our Founder",
+      date: "March 2, 2023",
+      excerpt:
+        "How a personal journey led to creating an app that's helping thousands with their mental health.",
+      content: `
+        <h2 class="text-2xl font-bold mb-2">Interview with Our Founder</h2>
+        <p>In an exclusive interview, our founder shared the personal journey 
+        that inspired the creation of the Mindset app. Today, the app supports 
+        thousands of users, helping them manage stress, anxiety, and improve 
+        overall well-being.</p>
+      `,
+    },
+  ];
 
 // Mock data for partners
 const partners = [
@@ -86,6 +121,7 @@ const CompanyPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState<typeof pressArticles[0] | null>(null);
 
   useEffect(() => {
     // Handle hash-based scrolling on initial load
@@ -237,21 +273,36 @@ const CompanyPage = () => {
             <h2 className="text-3xl font-bold mb-8 text-center">Press & Media</h2>
             
             <div className="space-y-8">
-              {pressArticles.map(article => (
-                <div key={article.id} className="border-b border-gray-200 pb-8">
-                  <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
-                  <p className="text-gray-600 mb-4">{article.date}</p>
-                  <p className="text-gray-700 mb-4">
-                    {article.excerpt}
-                  </p>
-                  <button 
-                    className="text-teal-600 font-medium hover:text-teal-800 transition-colors"
-                    onClick={() => window.open(article.url, '_blank')}
-                  >
-                    Read Article
-                  </button>
-                </div>
-              ))}
+              {!selectedArticle &&
+        pressArticles.map((article) => (
+          <div key={article.id} className="border-b border-gray-200 pb-8">
+            <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
+            <p className="text-gray-600 mb-4">{article.date}</p>
+            <p className="text-gray-700 mb-4">{article.excerpt}</p>
+            <button
+              className="text-teal-600 font-medium hover:text-teal-800 transition-colors"
+              onClick={() => setSelectedArticle(article)}
+            >
+              Read Article
+            </button>
+          </div>
+        ))}
+
+      {/* Detail view */}
+      {selectedArticle && (
+        <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
+          <button
+            className="mb-4 text-sm text-gray-500 hover:text-gray-700"
+            onClick={() => setSelectedArticle(null)}
+          >
+            ← Back to Articles
+          </button>
+          <div
+            className="prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
+          />
+        </div>
+      )}
               
               <div className="pt-4">
                 <h3 className="text-xl font-semibold mb-4">Press Inquiries</h3>
