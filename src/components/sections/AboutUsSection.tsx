@@ -150,7 +150,7 @@ export const AboutUsSection: React.FC = () => {
     If you enjoy what we do, consider supporting us on Ko-fi! Every little bit helps us continue our work and means the world to us!
   </p>
   <motion.a
-    href="https://ko-fi.com/mindsetone"
+    href="https://ko-fi.com/mindsetapp"
     target="_blank"
     rel="noopener noreferrer"
     whileHover={{ scale: 1.05 }}
