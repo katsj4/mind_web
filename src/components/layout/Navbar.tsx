@@ -4,7 +4,6 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 import { Button } from '../ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { link } from 'fs';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,7 +23,12 @@ export const Navbar: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 0;
+      window.scrollTo({
+        top: element.offsetTop - headerHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -48,11 +52,12 @@ export const Navbar: React.FC = () => {
     { name: 'Mindset AI', path: '/mindset' },
     { name: 'Download', sectionId: 'download' },
   ];
-useEffect(() => {
-  if (location.pathname !== '/') {
-    setActiveSection('');
-  }
-}, [location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+    }
+  }, [location.pathname]);
 
   return (
     <header 
@@ -71,41 +76,40 @@ useEffect(() => {
             </div>
             <span className="text-xl font-semibold text-primary-500">Mindset</span>
           </Link>
-{/* Desktop Navigation */}
-<nav className="hidden md:flex items-center space-x-8">
-  {navLinks.map((link) => (
-    <div key={link.name} className="relative group">
-      {link.path ? (
-        // External page link (like /mindset-ai)
-       <Link
-  to={link.path}
-  className={`text-sm font-medium py-2 transition-colors ${
-    location.pathname === link.path
-      ? 'text-[#008080] font-semibold'
-      : 'text-gray-700 dark:text-gray-200 hover:text-[#008080] dark:hover:text-primary-400'
-  }`}
->
-  {link.name}
-</Link>
 
-      ) : (
-        // Scroll to section
-        <button
-          onClick={() => handleNavClick(link.sectionId, link.name)}
-          className={`text-sm font-medium py-2 transition-colors ${
-            activeSection === link.name
-              ? 'text-primary-500'
-              : 'text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400'
-          }`}
-        >
-          {link.name}
-        </button>
-      )}
-      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-    </div>
-  ))}
-</nav>
-
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <div key={link.name} className="relative group">
+                {link.path ? (
+                  // External page link (like /mindset-ai)
+                  <Link
+                    to={link.path}
+                    className={`text-sm font-medium py-2 transition-colors ${
+                      location.pathname === link.path
+                        ? 'text-[#008080] font-semibold'
+                        : 'text-gray-700 dark:text-gray-200 hover:text-[#008080] dark:hover:text-primary-400'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  // Scroll to section
+                  <button
+                    onClick={() => handleNavClick(link.sectionId, link.name)}
+                    className={`text-sm font-medium py-2 transition-colors ${
+                      activeSection === link.name
+                        ? 'text-primary-500'
+                        : 'text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400'
+                    }`}
+                  >
+                    {link.name}
+                  </button>
+                )}
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+              </div>
+            ))}
+          </nav>
 
           {/* Right Side Items */}
           <div className="flex items-center space-x-4">
@@ -146,19 +150,33 @@ useEffect(() => {
             <div className="container mx-auto px-4 py-3 space-y-1">
               {navLinks.map((link) => (
                 <div key={link.name}>
-                  <button
-                    onClick={() => {
-                      handleNavClick(link.sectionId, link.name);
-                      setMobileMenuOpen(false);
-                    }}
-                    className={`block w-full text-left py-2 px-3 text-base font-medium rounded-md transition-colors ${
-                      activeSection === link.name
-                        ? 'text-primary-500'
-                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700'
-                    }`}
-                  >
-                    {link.name}
-                  </button>
+                  {link.path ? (
+                    <Link
+                      to={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block w-full text-left py-2 px-3 text-base font-medium rounded-md transition-colors ${
+                        location.pathname === link.path
+                          ? 'text-primary-500'
+                          : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setTimeout(() => handleNavClick(link.sectionId, link.name), 300);
+                      }}
+                      className={`block w-full text-left py-2 px-3 text-base font-medium rounded-md transition-colors ${
+                        activeSection === link.name
+                          ? 'text-primary-500'
+                          : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700'
+                      }`}
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </div>
               ))}
               <div className="pt-4 pb-3">
