@@ -228,7 +228,7 @@ export default function ChatWindow({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
-      <div className="text-center text-[10px] text-gray-400 py-1 dark:text-gray-600">Powered by Gemini</div>
+      <div className="text-center text-[10px] text-gray-400 py-1 dark:text-gray-600">Powered by Mindset</div>
     </motion.div>
   );
 }
