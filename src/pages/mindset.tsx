@@ -118,9 +118,12 @@ const HeroSection = () => (
       Your personal AI-powered coach for mental wellness. Get real-time, 24/7 support to manage stress,
       boost confidence, and achieve clarity — all in a safe, judgment-free space.
     </p>
-    <button className="px-8 py-3 bg-gradient-to-r from-teal-700 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:from-teal-800 hover:to-teal-600 transition-all transform hover:-translate-y-1 duration-300">
-      Try Mindset AI
-    </button>
+<button
+  className="px-8 py-3 bg-gradient-to-r from-teal-700 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:from-teal-800 hover:to-teal-600 transition-all transform hover:-translate-y-1 duration-300"
+  onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
+>
+  Try Mindset AI
+</button>
   </section>
 );
 
@@ -308,9 +311,12 @@ const FinalCTASection = () => (
     <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
       Join thousands of users who have improved their mental health with MindsetAI
     </p>
-    <button className="px-8 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 duration-300">
-      Get Started Today
-    </button>
+<button
+  className="px-8 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 duration-300"
+  onClick={() => window.open('https://play.google.com/apps/internaltest/4701471527189415687', '_blank')}
+>
+  Get Started Today
+</button>
   </section>
 );
 
