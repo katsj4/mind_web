@@ -28,7 +28,7 @@ export const FeaturesSection: React.FC = () => {
       image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
     {
-      title: 'Minset AI Chatbot',
+      title: 'Mindset AI Chatbot',
       description: 'Talk anytime with your personal AI support companion. Get instant guidance, mental health tips, and a listening ear—whenever you need it',
       icon: <Users />,
       color: 'bg-green-500',
