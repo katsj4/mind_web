@@ -74,7 +74,7 @@ export const HeroSection: React.FC = () => {
     border-[#008080] 
     rounded-full 
     hover:bg-transparent 
-    hover:text-gray-50  
+    hover:text-gray-100 
     transition-all 
     duration-300
     py-2 px-4
